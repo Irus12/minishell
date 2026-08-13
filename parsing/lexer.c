@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 00:12:38 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/10 18:30:21 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/08/12 17:34:28 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ char	**lexer_tab(char *str)
 		return (NULL);
 	filler(tab, str);
 	tab[nbr_token] = NULL;
+	//free(str);
 	return (tab);
 }
 

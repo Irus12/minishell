@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 15:58:12 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/11 15:04:26 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/08/12 19:10:07 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 //check if malloc too big
 int	no_quote_len(char *str)
 {
-	char	*line;
 	char	in_quote;
 	int		i;
 	int		j;
@@ -63,7 +62,7 @@ char *in_quote_extractor(char *str)
 	i = 0;
 	j = 0;
 	line = malloc((no_quote_len(str) + 1) * sizeof(char));
-	while (1)
+	while (str[i] == '\0')
 	{
 		if (!in_quote && (str[i] == '\'' || str[i] == '"'))
 			in_quote = str[i++];
@@ -73,8 +72,6 @@ char *in_quote_extractor(char *str)
 			in_quote = 0;
 			continue ;
 		}
-		if (str[i] == '\0')
-			break ;
 		line[j++] = str[i++];
 	}
 	line[j] = '\0';
@@ -132,10 +129,8 @@ int str_has_closing_quotes(char *str)
 void	clean_quotes(char **lex)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	while (lex[i])
 	{
 		if (str_has_closing_quotes(lex[i]))
@@ -155,10 +150,8 @@ void	clean_quotes(char **lex)
 void	clean_quotes_word(char *word)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	if ((word[0] == '"' && word[1] == '"') || (word[0] == '\'' && word[1] == '\''))
 	{
 		free(word);

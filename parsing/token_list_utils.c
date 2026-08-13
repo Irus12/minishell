@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 16:56:29 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/11 15:03:31 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/08/12 17:52:32 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,19 @@ t_token_list	new_token_list()
 	out.prev = NULL;
 	out.next = NULL;
 	return (out);
+}
+
+void	free_token_list(t_token_list *head)
+{
+	t_token_list	*tmp;
+
+	while(head)
+	{
+		tmp = head->next;
+		free(head->str);
+		free(head);
+		head = tmp;
+	}
 }
 
 /*

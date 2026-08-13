@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 14:47:21 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/10 16:47:39 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:54:43 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ $? = 0
 /*
 Will expand the found variable if it is not inside a simple quote
 */
-void static	process(char *str, char *out, char *var, int *index)
+/*
+static void	process(char *str, char *out, char *var, int *index)
 {
 	char	in_quote;
 
@@ -38,7 +39,7 @@ void static	process(char *str, char *out, char *var, int *index)
 	while (str[*index])
 	{
 		if (in_quote == '\'')
-			in_quote == 0;
+			in_quote = 0;
 		if (str[*index] == '\'' && quote_can_be_closed(str, '\''))
 			in_quote = '\'';
 		if (str[*index] == '$' && in_quote == 0)
@@ -55,6 +56,7 @@ void static	process(char *str, char *out, char *var, int *index)
 		str_append_char(&out, str[*index++]);
 	}
 }
+*/
 
 /*
 TODO
@@ -63,8 +65,8 @@ besoin de ft_strcmp
 static void	expand_str(char **var, char **str, char **out, int *index)
 {
 	*var = word_extractor(*str + *index, word_len(*str + *index));
-	if (*var == "$?") //BESOIN STR_CMPR //CHECK ICI POUR $?
-		str_append(&(*out), "0");
+	if(!ft_strncmp(*var, "$?", ft_strlen(*var)))
+		str_append(&(*out), "TODO"); //TODO
 	else if (getenv(*var + 1) != NULL)
 		str_append(&(*out), getenv(*var + 1));
 	*index += ft_strlen(*var);
@@ -90,7 +92,7 @@ char	*string_expander(char *str)
 	int		i;
 
 	in_quote = 0;
-	out = strdup(""); //FT
+	out = ft_strdup(""); //FT
 	i = 0;
 	while (str[i])
 	{

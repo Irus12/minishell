@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "libft.h"
 
 typedef enum s_token
 {
@@ -39,16 +40,23 @@ int		str_has_closing_quotes(char *str);
 int		word_len(char *str);
 char	*word_extractor(char *str, int size);
 void	clean_quotes_word(char *word);
+char	**lexer_tab(char *str);
 
 /* expander */
-char	*expanding(char *str); //
-char	*expand(char *str);
+char	*string_expander(char *str);
+void	list_expander(t_token_list **str);
 
 /* expander utils */
-int ft_strlen(char *c); //normalement libft
-void str_append(char **str, char *to_add);
-void *str_append_char(char **str, char c);
+void	str_append(char **str, char *to_add);
+void	str_append_char(char **str, char c);
 int	has_eof_delimiter(t_token_list *tkn);
 
+/* token list */
+t_token_list	new_token_list();
+void	list_init(t_token_list **stack, char **arr, int size);
+void	free_token_list(t_token_list *head);
+
+/* parsing */
+t_token_list *parser(char *str);
 
 #endif

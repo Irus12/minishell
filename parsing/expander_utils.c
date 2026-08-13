@@ -6,21 +6,11 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 15:56:37 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/11 15:02:16 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/08/11 18:38:08 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_strlen(char *c)
-{
-	int	i;
-
-	i = 0;
-	while (c[i])
-		i++;
-	return (i);
-}
 
 void	str_append(char **str, char *to_add)
 {
@@ -45,7 +35,7 @@ void	str_append(char **str, char *to_add)
 	*str = out;
 }
 
-void	*str_append_char(char **str, char c)
+void	str_append_char(char **str, char c)
 {
 	char	*tmp;
 
@@ -58,7 +48,6 @@ void	*str_append_char(char **str, char c)
 
 int	has_eof_delimiter(t_token_list *tkn)
 {
-	t_token_list	*node;
 	int				count;
 
 	while (tkn)
