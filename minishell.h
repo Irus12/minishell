@@ -59,4 +59,7 @@ void	free_token_list(t_token_list *head);
 /* parsing */
 t_token_list *parser(char *str);
 
+/* utils */
+int	*get_status();
+
 #endif

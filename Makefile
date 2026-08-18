@@ -15,7 +15,7 @@ CC := gcc
 CFLAGS := -Wall -Wextra -Werror
 RM := rm -f
 
-SRC := parsing/lexer.c parsing/expander.c parsing/expander_utils.c parsing/lexer_utils.c parsing/token_list_utils.c parser.c main.c
+SRC := parsing/lexer.c parsing/expander.c parsing/expander_utils.c parsing/lexer_utils.c parsing/token_list_utils.c parser.c main.c exit_status.c
 OBJ := $(SRC:.c=.o)
 
 LIBFT_DIR := libft

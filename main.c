@@ -32,11 +32,21 @@ on a pas free le lexer_tab quand on le transforme en token_list
 ni la string original du prompte
 */
 
+/*
+erreur de expander:
+> echo $USER'sa'
+doit donner : nicosa
+
+faire un custom extract_token à la place de extract_word
+
+
+*/
+
 int	main(void)
 {
 	//char *cmd = "salut mon amis";
 
-	t_token_list *list = parser("ls -R | grep '$?' , c'est bien");
+	t_token_list *list = parser("echo $USER'sa'");
 	print_list(list);
 	free_token_list(list);
 }

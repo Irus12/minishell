@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 14:47:21 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/12 16:54:43 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/08/18 18:50:14 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,29 @@ static void	process(char *str, char *out, char *var, int *index)
 */
 
 /*
-TODO
-besoin de ft_strcmp
+will take a string, analyse it and expand it if it's possible
 */
+
+static int	token_len(char *str)
+{
+	int	len;
+
+	len = 1;
+	if (str[len] == '?' || str[len] == '$')
+		return (2);
+	while (str[len] && (ft_isalnum(str[len]) || str[len] == '_'))
+		len++;
+	return (len);
+}
+
+//word_extractor doit pouvoir extraire les $VAR 
+// Donc dans ton word_extractor pour les variables,
+// tu continues tant que le char est alphanumérique ou _, et tu t'arrêtes dès que c'est autre chose (', ", espace, $, etc.).
 static void	expand_str(char **var, char **str, char **out, int *index)
 {
-	*var = word_extractor(*str + *index, word_len(*str + *index));
+	*var = word_extractor(*str + *index, token_len(*str + *index)); //ici il faut tweak 
 	if(!ft_strncmp(*var, "$?", ft_strlen(*var)))
-		str_append(&(*out), "TODO"); //TODO
+		str_append(&(*out), ft_itoa(*get_status())); //TODO
 	else if (getenv(*var + 1) != NULL)
 		str_append(&(*out), getenv(*var + 1));
 	*index += ft_strlen(*var);
