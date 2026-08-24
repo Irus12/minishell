@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 14:47:21 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/10 16:47:39 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/08/24 12:13:08 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ $? = 0
 /*
 Will expand the found variable if it is not inside a simple quote
 */
-void static	process(char *str, char *out, char *var, int *index)
+static void	process(char *str, char *out, char *var, int *index)
 {
 	char	in_quote;
 
@@ -38,7 +38,7 @@ void static	process(char *str, char *out, char *var, int *index)
 	while (str[*index])
 	{
 		if (in_quote == '\'')
-			in_quote == 0;
+			in_quote = 0;
 		if (str[*index] == '\'' && quote_can_be_closed(str, '\''))
 			in_quote = '\'';
 		if (str[*index] == '$' && in_quote == 0)

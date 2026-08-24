@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 15:56:37 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/11 15:02:16 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/08/20 16:59:33 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_strlen(char *c)
-{
-	int	i;
+// int	ft_strlen(char *c)
+// {
+// 	int	i;
 
-	i = 0;
-	while (c[i])
-		i++;
-	return (i);
-}
+// 	i = 0;
+// 	while (c[i])
+// 		i++;
+// 	return (i);
+// }
 
 void	str_append(char **str, char *to_add)
 {
