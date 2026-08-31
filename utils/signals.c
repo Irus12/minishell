@@ -6,16 +6,26 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 14:44:43 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/25 14:45:06 by romeo            ###   ########.fr       */
+/*   Updated: 2026/08/31 15:18:51 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+// static void	old_prompt(int sig)
+// {
+// 	g_exit_status = 1;
+// 	printf("\n");
+// 	rl_replace_line("", 0);
+// 	rl_on_new_line(); //coupable
+// 	rl_redisplay();
+// 	(void)sig;
+// }
+
 static void	old_prompt(int sig)
 {
-	g_exit_status = 1;
-	printf("\n");
+	g_exit_status = 130;
+	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();

@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 15:06:34 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/25 15:13:16 by romeo            ###   ########.fr       */
+/*   Updated: 2026/08/31 15:25:35 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,11 @@ void	close_fds(t_exec *current)
 		close(current->pipe_out);
 }
 
-void	fork_builtin(t_shell *shell, t_exec *head, t_env *env_list)
+void	fork_builtin(t_shell *shell, t_exec *head)
 {
 	t_exec	*curr;
 	pid_t	pid;
 
-	(void)env_list;
 	curr = head;
 	if (curr->fd_in == -1)
 	{
@@ -66,6 +65,7 @@ void	fork_builtin(t_shell *shell, t_exec *head, t_env *env_list)
 	}
 	if (pid == 0)
 	{
+		set_child_signals();
 		configure_io(curr);
 		handle_builtin(shell, curr);
 		_exit(EXIT_SUCCESS);
@@ -89,16 +89,14 @@ void	fork_external(t_exec *head, t_env *env_list, t_shell *shell)
 	}
 	else if (pid == 0)
 	{
+		set_child_signals();
 		configure_io(current);
 		execute_command(current, env_list, shell);
 		perror("execve failed");
 		_exit(EXIT_FAILURE);
 	}
 	else
-	{
 		close_fds(current);
-		shell->exit_status = 127;
-	}
 	add_pid(shell->pid_list, pid);
 }
 
@@ -121,7 +119,7 @@ void	send_to_exec(t_shell *shell, t_exec *cmd, t_env *env)
 		close_fds(cmd);
 	}
 	else if (is_builtin(cmd->execs[0]) && cmd->piped == 1)
-		fork_builtin(shell, cmd, env);
+		fork_builtin(shell, cmd);
 	else
 		fork_external(cmd, env, shell);
 }

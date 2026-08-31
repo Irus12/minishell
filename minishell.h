@@ -239,7 +239,7 @@ char			**tab_command(t_exec_context *context);
 void			init_exec_context(t_exec_context *context, t_shell *shell);
 void			execute_command(t_exec *node, t_env *env_lis, t_shell *shell);
 void			fork_external(t_exec *head, t_env *env_list, t_shell *shell);
-void			fork_builtin(t_shell *shell, t_exec *head, t_env *env_list);
+void			fork_builtin(t_shell *shell, t_exec *head);
 void			send_to_exec(t_shell *shell, t_exec *cmd, t_env *env_list);
 void			redirect_pid(int fd, int std_fd, const char *err_msg);
 void			execute_exec_list(t_shell *shell, t_exec *cmd_list, t_env *env);
@@ -320,6 +320,7 @@ void			free_env(t_env *env);
 /* Signals */
 void			ft_signal(int sig);
 int				*get_status();
+void			set_child_signals();
 
 
 #endif

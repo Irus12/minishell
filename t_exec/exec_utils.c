@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 14:10:36 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/25 14:11:01 by romeo            ###   ########.fr       */
+/*   Updated: 2026/08/31 15:31:35 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,22 @@ void	restore_fds2(t_shell *shell)
 	}
 }
 
+// void	execute_exec_list(t_shell *shell, t_exec *cmd_list, t_env *env)
+// {
+// 	t_exec	*current;
+
+// 	shell->pid_list = init_pid_list();
+// 	current = cmd_list;
+// 	while (current != NULL)
+// 	{
+// 		send_to_exec(shell, current, env);
+// 		current = current->next;
+// 		restore_fds2(shell);
+// 	}
+// 	wait_all_pids(shell->pid_list, cmd_list);
+// 	free_pid_list(shell->pid_list);
+// }
+
 void	execute_exec_list(t_shell *shell, t_exec *cmd_list, t_env *env)
 {
 	t_exec	*current;
@@ -57,7 +73,10 @@ void	execute_exec_list(t_shell *shell, t_exec *cmd_list, t_env *env)
 		current = current->next;
 		restore_fds2(shell);
 	}
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	wait_all_pids(shell->pid_list, cmd_list);
+	ft_signal(1);
 	free_pid_list(shell->pid_list);
 }
 
