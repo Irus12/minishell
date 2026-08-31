@@ -146,6 +146,15 @@ typedef struct s_shell
 	int					saved_stdout;
 }	t_shell;
 
+/*
+Struct used in the expanding process to minimize space
+*/
+typedef struct s_expand_state
+{
+	char	*og_str;
+	char	*new_str;
+}	t_expand_state;
+
 /* Environment and shell*/
 t_shell			*init_shell(char **envp);
 t_env_node		*get_node(t_env *env, char *key);
@@ -185,6 +194,7 @@ int				word_len(char *str);
 char			*word_extractor(char *str, int size);
 void			clean_quotes_word(char *word);
 char			**lexer_tab(char *str);
+void			list_quote_cleaner(t_token_list *head);
 
 /* expander */
 char			*string_expander(char *str);

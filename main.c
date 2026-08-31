@@ -41,12 +41,9 @@ faire un custom extract_token à la place de extract_word
 
 
 */
-
 int	main(void)
 {
-	//char *cmd = "salut mon amis";
-
-	t_token_list *list = parser("echo $USER'sa'");
+	t_token_list *list = parser("hello''world");
 	print_list(list);
 	free_token_list(list);
 }

@@ -6,12 +6,15 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 15:56:37 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/11 18:38:08 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/08/24 20:11:40 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+Will append/concat a string at the end of an another string
+*/
 void	str_append(char **str, char *to_add)
 {
 	int		total;
@@ -35,6 +38,9 @@ void	str_append(char **str, char *to_add)
 	*str = out;
 }
 
+/*
+Will append/concat a character at the end of a string
+*/
 void	str_append_char(char **str, char c)
 {
 	char	*tmp;
@@ -46,6 +52,9 @@ void	str_append_char(char **str, char c)
 	free(tmp);
 }
 
+/*
+Returns 1 if an EOF string is found
+*/
 int	has_eof_delimiter(t_token_list *tkn)
 {
 	int				count;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 20:17:06 by nschilli          #+#    #+#             */
+/*   Updated: 2026/08/31 16:15:49 by nschilli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	free_double_tab(char **tab)
@@ -13,7 +25,7 @@ void	free_double_tab(char **tab)
 	free(tab);
 }
 
-t_token_list *parser(char *str)
+t_token_list	*parser(char *str)
 {
 	char			**lexlings;
 	t_token_list	*tokens;
@@ -22,12 +34,13 @@ t_token_list *parser(char *str)
 	tokens = NULL;
 	size = 0;
 	lexlings = lexer_tab(str);
-	while(lexlings[size]) //null terminated ?
+	while(lexlings[size])
 		size++;
 	list_init(&tokens, lexlings, size);
 	list_expander(&tokens);
 	free_double_tab(lexlings);
-	//quotes_cleanup();
+	list_quotes_cleaner(tokens);
+	//void	list_quote_cleaner(t_token_list *head)
 	return (tokens);
 }
 

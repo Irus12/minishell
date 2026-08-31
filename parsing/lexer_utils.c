@@ -6,13 +6,13 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 15:58:12 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/12 19:10:07 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/08/24 20:14:12 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//check if malloc too big
+//wonder if malloc too big ???
 int	no_quote_len(char *str)
 {
 	char	in_quote;
@@ -80,7 +80,7 @@ char *in_quote_extractor(char *str)
 }
 
 /*
-Returns the number of closing quotes
+Returns the number of closing quotes present in a string
 */
 int	quote_can_be_closed(char *str, char quote)
 {
@@ -126,7 +126,7 @@ int str_has_closing_quotes(char *str)
 	return (count);
 }
 
-void	clean_quotes(char **lex)
+void	clean_quotes(char **lex) //TO REMOVE
 {
 	int	i;
 
@@ -160,4 +160,22 @@ void	clean_quotes_word(char *word)
 	else
 		word = in_quote_extractor(word);
 	i++;
+}
+
+void	list_quote_cleaner(t_token_list *head)
+{
+	while (head)
+	{
+		if(str_has_closing_quotes(head->str))
+		{
+			head->str = in_quote_extractor(head->str);
+		}
+		else if ((head->str[0] == '"' && head->str[1] == '"')
+			|| (head->str[0]== '\'' && head->str[1] == '\''))
+		{
+			free(head->str);
+			head->str = ft_strdup("");
+		}
+		head = head->next;
+	}
 }

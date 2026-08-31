@@ -6,48 +6,11 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 16:56:29 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/12 17:52:32 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/08/24 20:16:15 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-size_t	ft_strlcpy(char *dst, char *src, size_t dsize)
-{
-	size_t	i;
-	size_t	slen;
-
-	slen = ft_strlen(src);
-	if (dsize == 0)
-		return (slen);
-	i = 0;
-	while (i < dsize - 1 && src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (slen);
-}
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	unsigned char	*a;
-	unsigned char	*b;
-	size_t			i;
-
-	a = (unsigned char *)s1;
-	b = (unsigned char *)s2;
-	i = 0;
-	while ((s1[i] || s2[i]) && i < n)
-	{
-		if (a[i] != b[i])
-			return (a[i] - b[i]);
-		i++;
-	}
-	return (0);
-}
-*/
 
 //put ft_strlen instead of 2 and 1
 t_token assign_token_type(char *str)
@@ -89,6 +52,9 @@ t_token_list	*new_node(char *word)
 	return (new);
 }
 
+/*
+Will append a node at the end of t_token_list
+*/
 void	list_append(t_token_list **head, t_token_list *new)
 {
 	t_token_list	*tmp;
@@ -144,44 +110,3 @@ void	free_token_list(t_token_list *head)
 		head = tmp;
 	}
 }
-
-/*
-void    print_node(t_token_list *node)
-{
-    if (!node)
-        return ;
-    printf("--- NODE's index : %d  ---\n", node->index);
-    printf("str:        %s\n", node->str ? node->str : "(null)");
-    printf("type:       %d\n", node->type);
-    printf("index:      %d\n", node->index);
-    printf("is_command: %d\n", node->is_command);
-    printf("prev:       %s\n", node->prev ? node->prev->str : "(null)");
-    printf("next:       %s\n", node->next ? node->next->str : "(null)");
-    printf("-------------------------\n");
-}
-
-void    print_list(t_token_list *head)
-{
-    while (head)
-	{
-		print_node(head);
-		head = head->next;
-    }
-}
-
-int	main()
-{
-	t_token_list **stack = malloc(sizeof(t_token_list *));
-	*stack = NULL;
-	list_append(stack, new_node("yds"));
-	list_append(stack, new_node("ls"));
-	list_append(stack, new_node("|"));
-	list_append(stack, new_node(">"));
-	list_append(stack, new_node(">>"));
-	list_append(stack, new_node("<"));
-	list_append(stack, new_node("<<"));
-
-	print_list(*stack);
-}
-
-*/

@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 14:47:21 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/18 18:50:14 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/08/31 16:19:34 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,50 +18,15 @@
 #include "minishell.h"
 
 /*
-TODO
-en soit pour les heredoc EOF :
-on expand de base sauf si dans un '$user'
-et commen on doit supprimer les EOF on delet ca
-après le passage de expanding dans tokenlist
-
-avec str_cmp :
-$? = 0
-*/
-/*
 Will expand the found variable if it is not inside a simple quote
-*/
-/*
-static void	process(char *str, char *out, char *var, int *index)
-{
-	char	in_quote;
-
-	in_quote = 0;
-	while (str[*index])
-	{
-		if (in_quote == '\'')
-			in_quote = 0;
-		if (str[*index] == '\'' && quote_can_be_closed(str, '\''))
-			in_quote = '\'';
-		if (str[*index] == '$' && in_quote == 0)
-		{
-			var = word_extractor(str + *index, word_len(str + *index));
-			if (getenv(var + 1) == NULL)
-				str_append(&out, "");
-			else
-				str_append(&out, getenv(var + 1));
-			*index += ft_strlen(var);
-			free(var);
-			continue ;
-		}
-		str_append_char(&out, str[*index++]);
-	}
-}
+We use a system of string append/concat to rewrite the token's string
+in order to expand an env value ($VAR)
 */
 
 /*
-will take a string, analyse it and expand it if it's possible
+Will inspect the string of an env variable
+and will give it's length (without the $)
 */
-
 static int	token_len(char *str)
 {
 	int	len;
@@ -74,65 +39,71 @@ static int	token_len(char *str)
 	return (len);
 }
 
-//word_extractor doit pouvoir extraire les $VAR 
-// Donc dans ton word_extractor pour les variables,
-// tu continues tant que le char est alphanumérique ou _, et tu t'arrêtes dès que c'est autre chose (', ", espace, $, etc.).
-static void	expand_str(char **var, char **str, char **out, int *index)
+
+/*
+(due to space limitation) this function is used 
+by string_expander() in cases where a env variable is 
+detected and needs to be expanded
+*/
+static void	expand_str(char **str, char **out, int *index)
 {
-	*var = word_extractor(*str + *index, token_len(*str + *index)); //ici il faut tweak 
-	if(!ft_strncmp(*var, "$?", ft_strlen(*var)))
+	char *var;
+
+	var = word_extractor(*str + *index, token_len(*str + *index)); //ici il faut tweak 
+	if(!ft_strncmp(var, "$?", ft_strlen(var)))
 		str_append(&(*out), ft_itoa(*get_status())); //TODO
-	else if (getenv(*var + 1) != NULL)
-		str_append(&(*out), getenv(*var + 1));
-	*index += ft_strlen(*var);
-	free(*var);
+	else if (getenv(var + 1) != NULL)
+		str_append(&(*out), getenv(var + 1));
+	*index += ft_strlen(var);
+	free(var);
 }
 
-static void	assign_skip(char *s, char assign, int *index)
+/*
+(due to space limitation) this function is used 
+by string_expander() in cases where we are inside 
+a single quote, it adds the characters end assign accordingly
+the in_quote variable
+*/
+static void	assign_skip(char *receiver, char assign, int *index, t_expand_state *state)
 {
-	*s = assign;
+	str_append_char(&state->new_str, state->og_str[*index]);
+	*receiver = assign;
 	(*index)++;
 }
 
 /*
-Expand a string if it's possible
-won't expand variable in simple quotes like '$VAR'
-won't consider EOF edgecase
+Expand a string if it's possible and
+won't expand env variables in simple quotes like '$VAR'
 */
 char	*string_expander(char *str)
 {
+	t_expand_state	state;
 	char	in_quote;
-	char	*out;
-	char	*var;
 	int		i;
 
+	state.new_str = ft_strdup("");
+	state.og_str = str;
 	in_quote = 0;
-	out = ft_strdup(""); //FT
 	i = 0;
 	while (str[i])
 	{
-		if (in_quote == 0 && str[i] == '\'' && quote_can_be_closed(str, '\'')) // si simple on skip le getenv
-			assign_skip(&in_quote, '\'', &i);
-		else if (in_quote == '\'' && str[i] == '\'')
-			assign_skip(&in_quote, 0, &i);
-		else if (str[i] == '$' && in_quote == 0)
-			expand_str(&var, &str, &out, &i);
+		if (in_quote == 0 && state.og_str[i] == '\'' && quote_can_be_closed(state.og_str, '\'')) // si simple on skip le getenv
+			assign_skip(&in_quote, '\'', &i, &state);
+		else if (in_quote == '\'' && state.og_str[i] == '\'')
+			assign_skip(&in_quote, 0, &i, &state);
+		else if (state.og_str[i] == '$' && in_quote == 0)
+			expand_str(&state.og_str, &state.new_str, &i);
 		else
-			str_append_char(&out, str[i++]);
+			str_append_char(&state.new_str, state.og_str[i++]);
 	}
-	return (out);
+	return (state.new_str);
 }
 
 /*
-EOF handling
-
-expand : 
-<< EOF ..... EOF
-<< VAR
-
-ducoup si le EOF est quoted je peux just dire de pas expand
+takes a t_token_list and will try to expand env variables
+inside of found string if possible.
+Won't expand env variables in simple quotes like '$VAR'
 */
-
 void	list_expander(t_token_list **tkn)
 {
 	t_token_list	*node;
