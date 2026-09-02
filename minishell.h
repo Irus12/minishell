@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/31 19:26:26 by romeo             #+#    #+#             */
+/*   Updated: 2026/09/02 14:15:27 by romeo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -155,6 +167,9 @@ char			*my_getenv(char *name, t_env *env_list);
 void			free_env(t_env *env);
 void			free_env_list(t_env *env_list);
 
+char	**env_to_envp(t_env *env);
+void	free_envp(char **envp);
+
 void			node_free(t_env_node *node);
 
 // int	*get_status();
@@ -214,7 +229,7 @@ void			save_fds2(t_shell *shell);
 // PID //
 t_pid_list		*init_pid_list(void);
 void			add_pid(t_pid_list *list, pid_t pid);
-void			wait_all_pids(t_pid_list *list, t_exec *cmd);
+void			wait_all_pids(t_pid_list *list, t_exec *cmd, t_shell *shell);
 void			free_pid_list(t_pid_list *list);
 
 /* Builtins */
@@ -255,9 +270,9 @@ void			update_exec_links(t_exec_context *context, t_exec *exec_node);
 
 /* Redirection */
 void			handle_redirection(t_shell *shell, t_exec_context *context);
-void			handle_truncate_redirection(t_exec *node, t_token_list *current);
+void			handle_truncate_redirection(t_exec *node, t_token_list *current, t_shell *shell);
 void			handle_append_redirection(t_exec *node, t_token_list *current);
-void			handle_input_redirection(t_exec *node, t_token_list *current);
+void			handle_input_redirection(t_exec *node, t_token_list *current, t_shell *shell);
 void			handle_here_redir(t_exec *node, t_token_list *current, t_shell *shell);
 void			link_exec_with_pipe(t_exec *node_exec, t_exec_context *context);
 void			int_to_string(int n, char *buffer, size_t size);
@@ -299,6 +314,7 @@ void			ft_reset_std(t_exec *data);
 void			error_exit(const char *msg);
 void			safe_pid(pid_t pid);
 void			safe_pipe(int pipefd[2]);
+int				check_grammar(t_token_list *head);
 
 
 /* Sorting */
@@ -318,7 +334,7 @@ void			free_env(t_env *env);
 
 
 /* Signals */
-void			ft_signal(int sig);
+void			ft_signal(int sig, t_shell *shell);
 int				*get_status();
 void			set_child_signals();
 

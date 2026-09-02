@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 16:27:29 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/25 16:27:39 by romeo            ###   ########.fr       */
+/*   Updated: 2026/08/31 18:55:06 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ int	is_builtin(char *cmd)
 	return (ft_strcmp(cmd, "echo") == 0 || ft_strcmp(cmd, "pwd") == 0
 		|| ft_strcmp(cmd, "export") == 0 || ft_strcmp(cmd, "unset") == 0
 		|| ft_strcmp(cmd, "exit") == 0 || ft_strcmp(cmd, "export") == 0
-		|| ft_strcmp(cmd, "env") == 0 || ft_strcmp(cmd, "cd") == 0
-		|| ft_strcmp(cmd, "./minishell") == 0);
+		|| ft_strcmp(cmd, "env") == 0 || ft_strcmp(cmd, "cd") == 0);
 }
 
 void	execute_builtin(t_shell *shell, t_exec *exec_node)

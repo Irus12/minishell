@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 15:05:38 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/25 15:05:52 by romeo            ###   ########.fr       */
+/*   Updated: 2026/08/31 18:47:22 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,20 @@ static int	is_numeric(const char *str)
 void	ft_exit(t_shell *shell, char **args)
 {
 	int	exit_code;
-	int	i;
 
-	i = 0;
-	if (args && args[i + 1])
+	if (args && args[1] && args[2])
 	{
-		shell->exit_status = 88;
-		printf("exit error: %d\n", shell->exit_status);
+		shell->exit_status = 1;
+		printf("exit: too many arguments\n");
 		return ;
 	}
-	if (args && args[i] && !is_numeric(args[i]))
+	if (args && args[1] && !is_numeric(args[1]))
 	{
-		printf("exit: %s: numeric argument required\n", args[i + 1]);
+		printf("exit: %s: numeric argument required\n", args[1]);
 		exit_code = 2;
 	}
-	else if (args && args[i])
-		exit_code = atoi(args[i]);
+	else if (args && args[1])
+		exit_code = atoi(args[1]);
 	else
 		exit_code = shell->exit_status;
 	free_exec_list(shell->executor);

@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 14:10:36 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/31 15:31:35 by romeo            ###   ########.fr       */
+/*   Updated: 2026/08/31 18:01:55 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void	execute_exec_list(t_shell *shell, t_exec *cmd_list, t_env *env)
 	}
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
-	wait_all_pids(shell->pid_list, cmd_list);
-	ft_signal(1);
+	wait_all_pids(shell->pid_list, cmd_list, shell);
+	ft_signal(1, shell);
 	free_pid_list(shell->pid_list);
 }
 

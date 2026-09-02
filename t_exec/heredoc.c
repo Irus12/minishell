@@ -1,18 +1,18 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/25 17:33:27 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/26 01:45:07 by romeo            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// /* ************************************************************************** */
+// /*                                                                            */
+// /*                                                        :::      ::::::::   */
+// /*   heredoc.c                                          :+:      :+:    :+:   */
+// /*                                                    +:+ +:+         +:+     */
+// /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
+// /*                                                +#+#+#+#+#+   +#+           */
+// /*   Created: 2026/08/25 17:33:27 by romeo             #+#    #+#             */
+// /*   Updated: 2026/08/31 17:29:52 by romeo            ###   ########.fr       */
+// /*                                                                            */
+// /* ************************************************************************** */
 
-#include "../minishell.h"
+// #include "../minishell.h"
 
-// int	g_exist_status = 0;
+// // int	g_exist_status = 0;
 
 // void	handle_hereline(int tmp_fd, char *del, int is_exp, t_shell *shell)
 // {
@@ -22,9 +22,9 @@
 // 	delim_len = ft_strlen(del);
 // 	while (1)
 // 	{
-// 		ft_signal(4);
+// 		ft_signal(4, shell);
 // 		line = readline("> ");
-// 		if (!line || g_exist_status)
+// 		if (!line || shell->exit_status)
 // 			break ;
 // 		if (ft_strncmp(line, del, delim_len) == 0
 // 			&& line[delim_len] == '\0')
@@ -42,7 +42,7 @@
 // 	int		tmp_fd;
 // 	char	*tmp_filename;
 
-// 	g_exist_status = 0;
+// 		shell->exit_status = 0;
 // 	tmp_filename = "/tmp/minishell_heredoc_tmp";
 // 	tmp_fd = open(tmp_filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 // 	if (tmp_fd == -1)
@@ -52,7 +52,7 @@
 // 		return ;
 // 	}
 // 	handle_hereline(tmp_fd, delimiter, should_expand, shell);
-// 	if (g_exist_status)
+// 	if (shell->exit_status)
 // 	{
 // 		shell->exit_status = 130;
 // 		write(1, "Heredoc interrupted\n", 20);
@@ -100,14 +100,14 @@
 // 			write(2, "Heredoc: Missing delimiter\n", 27);
 // 			return ;
 // 		}
-// 		should_expand = !(current->quoted);
+// 		should_expand = !(current->quoted);/////////////////
 // 		delimiter = ft_strdup(current->str);
 // 		if (!delimiter)
 // 			return ;
 // 		cleanup_heredoc(node);
 // 		handle_heredoc(delimiter, should_expand, shell);
 // 		free(delimiter);
-// 		if (g_exist_status)
+// 		if (shell->exit_status)
 // 			return ;
 // 	}
 // 	redirect_heredoc_input(node);

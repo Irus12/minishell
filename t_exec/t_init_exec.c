@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 18:07:38 by lakamba           #+#    #+#             */
-/*   Updated: 2026/08/20 18:01:05 by romeo            ###   ########.fr       */
+/*   Updated: 2026/08/31 19:42:01 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_exec	*create_exec_node(int id)
 	node->next = NULL;
 	node->pipe_in = 0;
 	node->pipe_out = 0;
+	node->piped = 0;
 	return (node);
 }
 

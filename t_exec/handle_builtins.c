@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 16:11:27 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/25 16:13:00 by romeo            ###   ########.fr       */
+/*   Updated: 2026/08/31 18:53:42 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ void	handle_builtin(t_shell *shell, t_exec *exec_node)
 		ft_env(shell->environ->head);
 	else if (ft_strcmp(execs[0], "exit") == 0)
 		ft_exit(shell, execs);
-	else if (ft_strcmp(execs[0], "./minishell") == 0)
-		ft_mshell(shell, execs);
+	// else if (ft_strcmp(execs[0], "./minishell") == 0)
+	// 	ft_mshell(shell, execs);
 }
