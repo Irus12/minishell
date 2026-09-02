@@ -42,3 +42,60 @@
 "echo 'it'\\''s me'"      // output: it's me [IA_RACONTE_DE_LA_D]
 "echo ''$USER''"           // output: alice  (quotes vides autour d'une variable)
 "echo \"$USER is\" 'cool'" // output: alice is cool
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+cat << ''eof'c
+est stocke comme : delimiter=eof expandable=0
+
+
+Heredoc
+y'a des cas ou le heredoc ne veut pas se fermer 
+et on dirait que la seul condition pour que ca expand pas c'est qu'il
+faut minimum 1 paire de single quote dans la string
+
+
+c2r8s8% cat << oef
+heredoc> ds
+heredoc> oef
+ds
+c2r8s8% cat << 'ef''et'
+heredoc> $USER
+heredoc> 'ef''et'
+heredoc> 'ef''et'  
+heredoc> 'effet'   
+heredoc> efet      
+$USER
+'ef''et'
+'ef''et'
+'effet'
+c2r8s8% cat << 'tes't  
+heredoc> $USER
+heredoc> test
+$USER
+c2r8s8% bash         
+nschilli@c2r8s8:~/group_proj/minishell$ cat << 'ef''et'
+> $USER
+> efet
+$USER
+nschilli@c2r8s8:~/group_proj/minishell$ cat << ''eof
+> $USER
+> eof
+$USER
+nschilli@c2r8s8:~/group_proj/minishell$ cat << 'eof
+> $USER
+> eof
+> 'eof
+> eof
+> '
+> 'eof'
+> ^C
+nschilli@c2r8s8:~/group_proj/minishell$ cat << 'e'f'
+> $USER
+> ef
+> e'f
+> 'e'f'
+> 'ef'
+> ^C
+nschilli@c2r8s8:~/group_proj/minishell$ 

@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 14:44:43 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/31 15:18:51 by romeo            ###   ########.fr       */
+/*   Updated: 2026/08/31 17:31:28 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ static void	ctrl_c(int sig)
 	(void)sig;
 }
 
-void	ft_signal(int sig)
+void	ft_signal(int sig, t_shell *shell)
 {
+	(void)shell;
 	if (sig == 1)
 	{
 		signal(SIGINT, old_prompt);

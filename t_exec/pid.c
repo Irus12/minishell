@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 14:38:16 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/31 15:32:23 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/02 14:09:16 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,20 @@ void	add_pid(t_pid_list *list, pid_t pid)
 // void	wait_all_pids(t_pid_list *list, t_exec *cmd)
 // {
 // 	size_t	i;
+// 	int		status;
 
 // 	(void)cmd;
 // 	i = 0;
 // 	while (i < list->count)
 // 	{
-// 		waitpid(list->pids[i], NULL, WUNTRACED);
+// 		waitpid(list->pids[i], &status, WUNTRACED);
+// 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+// 			write(1, "\n", 1);
 // 		i++;
 // 	}
 // }
 
-void	wait_all_pids(t_pid_list *list, t_exec *cmd)
+void	wait_all_pids(t_pid_list *list, t_exec *cmd, t_shell *shell)
 {
 	size_t	i;
 	int		status;
@@ -77,8 +80,17 @@ void	wait_all_pids(t_pid_list *list, t_exec *cmd)
 	while (i < list->count)
 	{
 		waitpid(list->pids[i], &status, WUNTRACED);
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-			write(1, "\n", 1);
+
+		if (WIFEXITED(status))
+			shell->exit_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+		{
+			shell->exit_status = 128 + WTERMSIG(status);
+			if (WTERMSIG(status) == SIGINT)
+				write(1, "\n", 1);
+			else if (WTERMSIG(status) == SIGQUIT)
+				write(2, "Quit (core dumped)\n", 19);
+		}
 		i++;
 	}
 }

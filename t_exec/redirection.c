@@ -6,14 +6,14 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 17:32:00 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/02 14:21:03 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/02 14:43:50 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 // Handling > (Truncate) Redirection
-void	handle_truncate_redirection(t_exec *node, t_token_list *current)
+void	handle_truncate_redirection(t_exec *node, t_token_list *current, t_shell *s)
 {
 	int	fd;
 
@@ -22,7 +22,7 @@ void	handle_truncate_redirection(t_exec *node, t_token_list *current)
 	if (fd == -1)
 	{
 		perror("open");
-		g_exit_status = 127;
+		s->exit_status = 127;
 		return ;
 	}
 	node->fd_out = fd;
@@ -44,7 +44,7 @@ void	handle_append_redirection(t_exec *node, t_token_list *current)
 	node->append = 1;
 }
 
-void	handle_input_redirection(t_exec *node, t_token_list *current)
+void	handle_input_redirection(t_exec *node, t_token_list *current, t_shell *s)
 {
 	int		fd;
 	char	*filename;
@@ -55,7 +55,7 @@ void	handle_input_redirection(t_exec *node, t_token_list *current)
 	{
 		filename = current->str;
 		perror(filename);
-		g_exit_status = 1;
+		s->exit_status = 1;
 		if (node->fd_in == STDIN_FILENO)
 			node->fd_in = -1;
 		return ;
@@ -71,18 +71,17 @@ void	handle_input_redirection(t_exec *node, t_token_list *current)
 
 void	handle_redirection(t_shell *shell, t_exec_context *c)
 {
-	(void)shell;
 	if (!c || !c->current_lexer->next || !c->current_lexer)
 		return ;
 	if (c->current_lexer->type == TRUNCATE)
-		handle_truncate_redirection(c->current_exec, c->current_lexer);
+		handle_truncate_redirection(c->current_exec, c->current_lexer, shell);
 	else if (c->current_lexer->type == APPEND)
 		handle_append_redirection(c->current_exec, c->current_lexer);
 	else if (c->current_lexer->type == REDIRECT_INPUT)
-		handle_input_redirection(c->current_exec, c->current_lexer);
+		handle_input_redirection(c->current_exec, c->current_lexer, shell);
 	else if (c->current_lexer->type == HEREDOC)
-		printf("caca\n");
-		//handle_here_redir(c->current_exec, c->current_lexer, shell); ////a corriger les heredocs
+		// printf("caca\n");
+		handle_here_redir(c->current_exec, c->current_lexer, shell); ////a corriger les heredocs
 	else if (c->current_lexer->type == PIPE)
 	{
 		link_exec_with_pipe(c->current_exec, c);

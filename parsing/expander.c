@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 14:47:21 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/02 14:38:17 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/02 14:51:36 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	expand_str(char **str, char **out, int *index, t_shell *shell)
 
 	//exit_status = *get_status(); //marche pas
 	exit_status = shell->exit_status;
-	var = word_extractor(*str + *index, token_len(*str + *index)); //ici il faut tweak 
+	var = word_extractor(*str + *index, token_len(*str + *index));
 	if(!ft_strncmp(var, "$?", ft_strlen(var)))
 		str_append(&(*out), ft_itoa(exit_status)); //TODO
 	//str_append(&(*out), ft_itoa(*get_status()));
@@ -108,7 +108,7 @@ void	list_expander(t_token_list **tkn, t_shell *shell)
 	}
 }
 
-/*
+
 char	*heredoc_expander(char *line, t_shell *shell)
 {
 	t_expand_state	state;
@@ -126,4 +126,3 @@ char	*heredoc_expander(char *line, t_shell *shell)
 	}
 	return (state.new_str);
 }
-*/

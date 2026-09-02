@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 15:58:12 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/02 14:33:09 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/02 15:12:04 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char *in_quote_extractor(char *str)
 }
 
 /*
+Receive a string and the char of a quote, and check if the quote can be closed
 Returns the number of closing quotes present in a string
 */
 int	quote_can_be_closed(char *str, char quote)
@@ -103,6 +104,7 @@ int	quote_can_be_closed(char *str, char quote)
 	return (0);
 }
 
+//avant ca return count, mtn ca return le type de quote qui englope le plus
 int	str_has_closing_quotes(char *str)
 {
 	int		i;

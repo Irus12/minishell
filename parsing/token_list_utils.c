@@ -6,14 +6,14 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 16:56:29 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/31 17:24:36 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/02 14:58:22 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 //put ft_strlen instead of 2 and 1
-t_token assign_token_type(char *str)
+t_token	assign_token_type(char *str)
 {
 	if (ft_strncmp(str, "<<", 2) == 0)
 		return(HEREDOC); 
@@ -39,7 +39,6 @@ t_token_list	*new_node(char *word)
 	new = malloc(sizeof(t_token_list));
 	if (!new)
 		return (NULL);
-	
 	new->str = malloc((ft_strlen(word) + 1 ) * sizeof(char));
 	if (!new->str)
 		return (free(new), NULL);
@@ -89,9 +88,10 @@ void	list_init(t_token_list **stack, char **arr, int size)
 	}
 }
 
-t_token_list	new_token_list()
+t_token_list	new_token_list(void)
 {
-	t_token_list out;
+	t_token_list	out;
+
 	out.str = NULL;
 	out.prev = NULL;
 	out.next = NULL;

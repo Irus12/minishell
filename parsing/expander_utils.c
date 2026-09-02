@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 15:56:37 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/31 17:55:28 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/02 14:47:55 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	has_eof_delimiter(t_token_list *tkn) //DEPRICATED
 {
 	int				count;
 
+	count = 0;
 	while (tkn)
 	{
 		if (ft_strncmp(tkn->str, "EOF", 3))
