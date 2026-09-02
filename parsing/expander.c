@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 14:47:21 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/31 16:19:34 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/01 18:51:45 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-
 #include "minishell.h"
 
 /*
@@ -24,34 +23,21 @@ in order to expand an env value ($VAR)
 */
 
 /*
-Will inspect the string of an env variable
-and will give it's length (without the $)
-*/
-static int	token_len(char *str)
-{
-	int	len;
-
-	len = 1;
-	if (str[len] == '?' || str[len] == '$')
-		return (2);
-	while (str[len] && (ft_isalnum(str[len]) || str[len] == '_'))
-		len++;
-	return (len);
-}
-
-
-/*
 (due to space limitation) this function is used 
 by string_expander() in cases where a env variable is 
 detected and needs to be expanded
 */
-static void	expand_str(char **str, char **out, int *index)
+static void	expand_str(char **str, char **out, int *index, t_shell *shell)
 {
 	char *var;
+	int exit_status;
 
+	//exit_status = *get_status(); //marche pas
+	exit_status = shell->exit_status;
 	var = word_extractor(*str + *index, token_len(*str + *index)); //ici il faut tweak 
 	if(!ft_strncmp(var, "$?", ft_strlen(var)))
-		str_append(&(*out), ft_itoa(*get_status())); //TODO
+		str_append(&(*out), ft_itoa(exit_status)); //TODO
+	//str_append(&(*out), ft_itoa(*get_status()));
 	else if (getenv(var + 1) != NULL)
 		str_append(&(*out), getenv(var + 1));
 	*index += ft_strlen(var);
@@ -75,7 +61,7 @@ static void	assign_skip(char *receiver, char assign, int *index, t_expand_state 
 Expand a string if it's possible and
 won't expand env variables in simple quotes like '$VAR'
 */
-char	*string_expander(char *str)
+char	*string_expander(char *str,  t_shell *shell)
 {
 	t_expand_state	state;
 	char	in_quote;
@@ -92,7 +78,7 @@ char	*string_expander(char *str)
 		else if (in_quote == '\'' && state.og_str[i] == '\'')
 			assign_skip(&in_quote, 0, &i, &state);
 		else if (state.og_str[i] == '$' && in_quote == 0)
-			expand_str(&state.og_str, &state.new_str, &i);
+			expand_str(&state.og_str, &state.new_str, &i, shell);
 		else
 			str_append_char(&state.new_str, state.og_str[i++]);
 	}
@@ -104,7 +90,7 @@ takes a t_token_list and will try to expand env variables
 inside of found string if possible.
 Won't expand env variables in simple quotes like '$VAR'
 */
-void	list_expander(t_token_list **tkn)
+void	list_expander(t_token_list **tkn, t_shell *shell)
 {
 	t_token_list	*node;
 	char			*expanded;
@@ -114,10 +100,28 @@ void	list_expander(t_token_list **tkn)
 	{
 		if (node->type == WORD)
 		{
-			expanded = string_expander(node->str);
+			expanded = string_expander(node->str, shell);
 			free(node->str);
 			node->str = expanded;
 		}
 		node = node->next;
 	}
+}
+
+char	*heredoc_expander(char *line, t_shell *shell)
+{
+	t_expand_state	state;
+	int		i;
+
+	state.new_str = ft_strdup("");
+	state.og_str = line;
+	i = 0;
+	while (line[i])
+	{
+		if (state.og_str[i] == '$')
+			expand_str(&state.og_str, &state.new_str, &i, shell);
+		else
+			str_append_char(&state.new_str, state.og_str[i++]);
+	}
+	return (state.new_str);
 }

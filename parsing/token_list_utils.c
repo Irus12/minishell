@@ -6,11 +6,11 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 16:56:29 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/24 20:16:15 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/08/31 17:24:36 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 //put ft_strlen instead of 2 and 1
 t_token assign_token_type(char *str)

@@ -6,12 +6,12 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/24 20:17:06 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/31 16:15:49 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/08/31 17:15:13 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 void	free_double_tab(char **tab)
 {
 	int	i;
@@ -44,3 +44,4 @@ t_token_list	*parser(char *str)
 	return (tokens);
 }
 
+*/

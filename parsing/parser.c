@@ -13,7 +13,7 @@ void	free_double_tab(char **tab)
 	free(tab);
 }
 
-t_token_list *parser(char *str)
+t_token_list *parser(char *str, t_shell *shell)
 {
 	char			**lexlings;
 	t_token_list	*tokens;
@@ -22,12 +22,11 @@ t_token_list *parser(char *str)
 	tokens = NULL;
 	size = 0;
 	lexlings = lexer_tab(str);
-	while(lexlings[size]) //null terminated ?
+	while(lexlings[size])
 		size++;
 	list_init(&tokens, lexlings, size);
-	list_expander(&tokens);
+	list_expander(&tokens, shell);
 	free_double_tab(lexlings);
-	//quotes_cleanup();
+	list_quote_cleaner(tokens); //va plus loin dans la chaine des événements ?
 	return (tokens);
 }
-

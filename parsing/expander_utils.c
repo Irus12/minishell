@@ -6,11 +6,27 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 15:56:37 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/24 20:11:40 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/08/31 17:55:28 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
+
+/*
+Will inspect the string of an env variable
+and will give it's length (without the $)
+*/
+int	token_len(char *str)
+{
+	int	len;
+
+	len = 1;
+	if (str[len] == '?' || str[len] == '$')
+		return (2);
+	while (str[len] && (ft_isalnum(str[len]) || str[len] == '_'))
+		len++;
+	return (len);
+}
 
 /*
 Will append/concat a string at the end of an another string
@@ -55,7 +71,7 @@ void	str_append_char(char **str, char c)
 /*
 Returns 1 if an EOF string is found
 */
-int	has_eof_delimiter(t_token_list *tkn)
+int	has_eof_delimiter(t_token_list *tkn) //DEPRICATED
 {
 	int				count;
 

@@ -197,10 +197,12 @@ char			**lexer_tab(char *str);
 void			list_quote_cleaner(t_token_list *head);
 
 /* expander */
-char			*string_expander(char *str);
-void			list_expander(t_token_list **str);
+char			*string_expander(char *str, t_shell *shell);
+void			list_expander(t_token_list **str, t_shell *shell);
+char			*heredoc_expander(char *line, t_shell *shell);
 
 /* expander utils */
+int				token_len(char *str);
 void			str_append(char **str, char *to_add);
 void			str_append_char(char **str, char c);
 int				has_eof_delimiter(t_token_list *tkn);
@@ -211,10 +213,10 @@ void			list_init(t_token_list **stack, char **arr, int size);
 void			free_token_list(t_token_list *head);
 
 /* parsing */
-t_token_list *parser(char *str);
+t_token_list *parser(char *str, t_shell *shell);
 
 /* utils */
-int	*get_status();
+int			*get_status();
 
 /*-----------------FD--------------*/
 void			restore_fds(t_fd_backup *backup);

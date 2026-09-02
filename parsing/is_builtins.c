@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 17:00:27 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/25 17:00:40 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/01 19:04:00 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,9 @@ void	ft_mshell(t_shell *shell, char **cmd)
 	{
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
-			shell->exit_status = WEXITSTATUS(status);
+		{
+			shell->exit_status = WEXITSTATUS(status); //HERE GET ExiT
+		}
 	}
 	free_tab(env_arr);
 }

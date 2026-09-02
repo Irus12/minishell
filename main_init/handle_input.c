@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 13:48:47 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/31 15:37:47 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/01 18:57:37 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	handle_line(t_shell *shell, char *line)
 		perror("Failed to allocate input string");
 		return ;
 	}
-	shell->lex_head = parser(shell->rl_input);
+	shell->lex_head = parser(shell->rl_input, shell);
 	if (!shell->lex_head)
 	{
 		shell->exit_status = 2;

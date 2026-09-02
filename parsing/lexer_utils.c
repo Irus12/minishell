@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 15:58:12 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/24 20:14:12 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/08/31 17:27:08 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char *in_quote_extractor(char *str)
 	i = 0;
 	j = 0;
 	line = malloc((no_quote_len(str) + 1) * sizeof(char));
-	while (str[i] == '\0')
+	while (str[i] != '\0')
 	{
 		if (!in_quote && (str[i] == '\'' || str[i] == '"'))
 			in_quote = str[i++];
