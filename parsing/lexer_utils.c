@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 15:58:12 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/31 17:27:08 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/02 14:33:09 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	quote_can_be_closed(char *str, char quote)
 	return (0);
 }
 
-int str_has_closing_quotes(char *str)
+int	str_has_closing_quotes(char *str)
 {
 	int		i;
 	int		count;

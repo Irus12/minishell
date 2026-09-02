@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 14:47:21 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/01 18:51:45 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/02 14:38:17 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,11 @@ void	list_expander(t_token_list **tkn, t_shell *shell)
 	}
 }
 
+/*
 char	*heredoc_expander(char *line, t_shell *shell)
 {
 	t_expand_state	state;
-	int		i;
+	int				i;
 
 	state.new_str = ft_strdup("");
 	state.og_str = line;
@@ -125,3 +126,4 @@ char	*heredoc_expander(char *line, t_shell *shell)
 	}
 	return (state.new_str);
 }
+*/
