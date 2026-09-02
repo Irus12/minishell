@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 19:26:26 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/02 14:15:27 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/02 14:28:22 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,6 +276,10 @@ void			handle_input_redirection(t_exec *node, t_token_list *current, t_shell *sh
 void			handle_here_redir(t_exec *node, t_token_list *current, t_shell *shell);
 void			link_exec_with_pipe(t_exec *node_exec, t_exec_context *context);
 void			int_to_string(int n, char *buffer, size_t size);
+void			write_expanded_line(char *line, int tmp_fd, t_shell *shell);
+void			write_line_to_fd(char *l, int fd, int exp, t_shell *shell);
+
+
 
 char			*clean_rl(char *rl_copy);
 char			**input_split(const char *s);

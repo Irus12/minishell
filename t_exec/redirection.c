@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 17:32:00 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/31 17:58:20 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/02 14:25:02 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void	handle_redirection(t_shell *shell, t_exec_context *c)
 	else if (c->current_lexer->type == REDIRECT_INPUT)
 		handle_input_redirection(c->current_exec, c->current_lexer, shell);
 	else if (c->current_lexer->type == HEREDOC)
-		printf("caca\n");
-		//handle_here_redir(c->current_exec, c->current_lexer, shell); ////a corriger les heredocs
+		// printf("caca\n");
+		handle_here_redir(c->current_exec, c->current_lexer, shell); ////a corriger les heredocs
 	else if (c->current_lexer->type == PIPE)
 	{
 		link_exec_with_pipe(c->current_exec, c);
