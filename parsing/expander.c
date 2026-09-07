@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 14:47:21 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/06 22:37:19 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/07 16:01:37 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ char	*string_expander(char *str,  t_shell *shell)
 		else if (in_quote == '\'' && state.og_str[i] == '\'')
 			assign_skip(&in_quote, 0, &i, &state);
 		else if (state.og_str[i] == '$' && in_quote == 0)
+			expand_str(&state.og_str, &state.new_str, &i, shell);
+		else if (state.og_str[i] == '$' && in_quote != 0)
 			expand_str(&state.og_str, &state.new_str, &i, shell);
 		else
 			str_append_char(&state.new_str, state.og_str[i++]);
