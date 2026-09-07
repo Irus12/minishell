@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 16:56:29 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/02 14:58:22 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/07 15:23:30 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ t_token_list	*new_node(char *word)
 	new->type = assign_token_type(word);
 	new->index = 0;
 	new->is_command = 0;
+	new->is_quoted = 0;
+	if (str_has_closing_quotes(new->str)) //changer "has quotes" de manière a stocker la plus grosse quote qui englobe le plus 
+		new->is_quoted = 1;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);

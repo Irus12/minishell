@@ -1,5 +1,25 @@
 #include "../minishell.h"
 
+void    print_node(t_token_list *node)
+{
+	if (!node)
+		return ;
+	while(node)
+	{
+	printf("--- NODE's index : %d  ---\n", node->index);
+	printf("str:        %s\n", node->str ? node->str : "(null)");
+	printf("type:       %d\n", node->type);
+	printf("index:      %d\n", node->index);
+	printf("is_command: %d\n", node->is_command);
+	printf("prev:       %s\n", node->prev ? node->prev->str : "(null)");
+	printf("next:       %s\n", node->next ? node->next->str : "(null)");
+	printf("IS_QUOTED	%d\n", node->is_quoted);
+	printf("-------------------------\n");
+	node = node->next;
+	}
+}
+
+
 void	free_double_tab(char **tab)
 {
 	int	i;
@@ -28,5 +48,6 @@ t_token_list *parser(char *str, t_shell *shell)
 	list_expander(&tokens, shell);
 	free_double_tab(lexlings);
 	list_quote_cleaner(tokens); //va plus loin dans la chaine des événements ?
+	//print_node(tokens); DEBUG
 	return (tokens);
 }

@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 15:58:12 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/02 15:12:04 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/07 12:27:50 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,11 @@ int	quote_can_be_closed(char *str, char quote)
 }
 
 //avant ca return count, mtn ca return le type de quote qui englope le plus
+//changer "has quotes" de manière a stocker la plus grosse quote qui englobe le plus
+// "'$USER'" return "
+// ""'$USER' ??? 
+//etc ...
+// EN VRAI C FINE PARCE QUE ""EOF EXPAND PAS NON PLUS	
 int	str_has_closing_quotes(char *str)
 {
 	int		i;
@@ -149,7 +154,7 @@ void	clean_quotes(char **lex) //TO REMOVE
 	}
 }
 
-void	clean_quotes_word(char *word)
+void	clean_quotes_word(char *word) //pour cleanup et stockage delimiter du heredoc
 {
 	int	i;
 

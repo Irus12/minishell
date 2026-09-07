@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 19:26:26 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/02 14:56:39 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/06 23:43:37 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_token_list
 	t_token				type;
 	int					index;
 	int					is_command;
-	char				is_quoted;
+	char				is_quoted; //TODO
 	struct s_token_list	*prev;
 	struct s_token_list	*next;
 }	t_token_list;
