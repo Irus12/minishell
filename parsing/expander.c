@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 14:47:21 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/07 16:01:37 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/07 18:37:11 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,13 @@ char	*string_expander(char *str,  t_shell *shell)
 	i = 0;
 	while (str[i])
 	{
-		if (in_quote == 0 && state.og_str[i] == '\'' && quote_can_be_closed(state.og_str, '\'')) // si simple on skip le getenv
+		if (in_quote == 0 && str[i] == '"' && quote_can_be_closed(state.og_str, '\''))
+			assign_skip(&in_quote, '"', &i, &state);
+		else if (in_quote == 0 && state.og_str[i] == '\'' && quote_can_be_closed(state.og_str, '\'')) // si simple on skip le getenv
 			assign_skip(&in_quote, '\'', &i, &state);
-		else if (in_quote == '\'' && state.og_str[i] == '\'')
+		else if ((in_quote && state.og_str[i] == in_quote))
 			assign_skip(&in_quote, 0, &i, &state);
-		else if (state.og_str[i] == '$' && in_quote == 0)
-			expand_str(&state.og_str, &state.new_str, &i, shell);
-		else if (state.og_str[i] == '$' && in_quote != 0)
+		else if (state.og_str[i] == '$' && in_quote != '\'')
 			expand_str(&state.og_str, &state.new_str, &i, shell);
 		else
 			str_append_char(&state.new_str, state.og_str[i++]);
