@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 17:33:27 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/02 14:25:42 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/03 17:19:57 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	handle_here_redir(t_exec *node, t_token_list *current, t_shell *shell)
 			write(2, "Heredoc: Missing delimiter\n", 27);
 			return ;
 		}
-		should_expand = 0;//!(current->quoted);/////////////////
+		should_expand = 0; //!(current->quoted);/////////////////
 		delimiter = ft_strdup(current->str);
 		if (!delimiter)
 			return ;

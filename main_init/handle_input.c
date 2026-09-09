@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 13:48:47 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/07 18:07:46 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/09 14:28:06 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void	handle_input(t_shell *shell)
 {
 	char		*line;
 	t_fd_backup	fd_backup;
-
-	printf("DEBUG shell->exit_status = %d\n", shell->exit_status);/////
 	
 	fd_backup = save_fds();
 	ft_signal(1, shell);
