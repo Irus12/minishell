@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 19:26:26 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/06 23:43:37 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/09 18:16:12 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <sys/wait.h>
 # include <sysexits.h>
 # include <unistd.h>
+# include <signal.h> 
 # include <limits.h>
 # include "libft_merged/include/libft.h"
 
@@ -42,12 +43,12 @@ extern int	g_exit_status;
 
 typedef enum s_token
 {
-	WORD,           // word / argument de commande
-	PIPE,           // |
-	TRUNCATE,       // > redirige stdout vers un fichier (écrase)
-	APPEND,         // >> redirige stdout vers un fichier (ajoute à la fin)
-	REDIRECT_INPUT, // < redirige stdin depuis un fichier
-	HEREDOC,        // << lit stdin jusqu'à un délimiteur (ex: << EOF)
+	WORD,// word / argument de commande
+	PIPE,// |
+	TRUNCATE,// > redirige stdout vers un fichier (écrase)
+	APPEND,// >> redirige stdout vers un fichier (ajoute à la fin)
+	REDIRECT_INPUT,// < redirige stdin depuis un fichier
+	HEREDOC,// << lit stdin jusqu'à un délimiteur (ex: << EOF)
 }	t_token;
 
 /*gestion pid*/
@@ -177,8 +178,8 @@ char			*my_getenv(char *name, t_env *env_list);
 void			free_env(t_env *env);
 void			free_env_list(t_env *env_list);
 
-char	**env_to_envp(t_env *env);
-void	free_envp(char **envp);
+char			**env_to_envp(t_env *env);
+void			free_envp(char **envp);
 
 void			node_free(t_env_node *node);
 
@@ -224,15 +225,15 @@ void			str_append_char(char **str, char c);
 int				has_eof_delimiter(t_token_list *tkn);
 
 /* token list */
-t_token_list	new_token_list();
+t_token_list	new_token_list(void);
 void			list_init(t_token_list **stack, char **arr, int size);
 void			free_token_list(t_token_list *head);
 
 /* parsing */
-t_token_list *parser(char *str, t_shell *shell);
+t_token_list	*parser(char *str, t_shell *shell);
 
 /* utils */
-int			*get_status();
+int				*get_status(void);
 
 /*-----------------FD--------------*/
 void			restore_fds(t_fd_backup *backup);
@@ -253,7 +254,7 @@ void			ft_env(t_env_node *env);
 void			ft_exit(t_shell *shell, char **args);
 void			ft_mshell(t_shell *shell, char **cmd);
 void			ft_pwd(void);
-void			ft_export(char **args);
+// void			ft_export(char **args);
 int				unset(t_shell *shell, char **execs);
 void			handle_export(t_shell *shell, char **execs);
 void			execute_builtin(t_shell *shell, t_exec *cmd);
@@ -269,7 +270,7 @@ void			execute_command(t_exec *node, t_env *env_lis, t_shell *shell);
 void			fork_external(t_exec *head, t_env *env_list, t_shell *shell);
 void			fork_builtin(t_shell *shell, t_exec *head);
 void			send_to_exec(t_shell *shell, t_exec *cmd, t_env *env_list);
-void			redirect_pid(int fd, int std_fd, const char *err_msg);
+// void			redirect_pid(int fd, int std_fd, const char *err_msg);
 void			execute_exec_list(t_shell *shell, t_exec *cmd_list, t_env *env);
 void			error_command(const char *message);
 void			command_not_found(char *cmd, t_shell *shell);
@@ -283,19 +284,19 @@ void			update_exec_links(t_exec_context *context, t_exec *exec_node);
 
 /* Redirection */
 void			handle_redirection(t_shell *shell, t_exec_context *context);
-void			handle_truncate_redirection(t_exec *node, t_token_list *current, t_shell *shell);
+void			handle_trunc_redir(t_exec *n, t_token_list *c, t_shell *s);
 void			handle_append_redirection(t_exec *node, t_token_list *current);
-void			handle_input_redirection(t_exec *node, t_token_list *current, t_shell *shell);
-void			handle_here_redir(t_exec *node, t_token_list *current, t_shell *shell);
+void			handle_input_redir(t_exec *n, t_token_list *c, t_shell *s);
+void			handle_here_redir(t_exec *node, t_token_list *c, t_shell *sh);
+void			cleanup_heredoc(t_exec *node);
+void			redirect_heredoc_input(t_exec *node);
 void			link_exec_with_pipe(t_exec *node_exec, t_exec_context *context);
-void			int_to_string(int n, char *buffer, size_t size);
-void			write_expanded_line(char *line, int tmp_fd, t_shell *shell);
+// void			int_to_string(int n, char *buffer, size_t size);
+// void			write_expanded_line(char *line, int tmp_fd, t_shell *shell);
 void			write_line_to_fd(char *l, int fd, int exp, t_shell *shell);
 
-
-
-char			*clean_rl(char *rl_copy);
-char			**input_split(const char *s);
+// char			*clean_rl(char *rl_copy);
+// char			**input_split(const char *s);
 t_shell			*init_shell(char **envp);
 
 ///////////       RANDOMS              ///////////
@@ -323,7 +324,7 @@ char			*ft_strncpy(char *s1, char *s2, int len);
 void			reset_shell(t_shell *shell);
 int				is_valid(char *arg);
 int				is_valid_id(char *arg);
-char	*ft_strjoin2(char const *s1, char const *s2);
+char			*ft_strjoin2(char const *s1, char const *s2);
 
 /* Safe Functions */
 void			*safe_malloc(size_t bytes);
@@ -332,7 +333,6 @@ void			error_exit(const char *msg);
 void			safe_pid(pid_t pid);
 void			safe_pipe(int pipefd[2]);
 int				check_grammar(t_token_list *head);
-
 
 /* Sorting */
 t_pair			*create_env_array(t_env *env, int count);
@@ -349,11 +349,10 @@ void			free_tab(char **tab);
 t_token_list	*free_lex(t_token_list *lex_head);
 void			free_env(t_env *env);
 
-
 /* Signals */
 void			ft_signal(int sig, t_shell *shell);
-int				*get_status();
-void			set_child_signals();
-
+int				*get_status(void);
+void			set_child_signals(void);
+void			heredoc_sigint(int sig);
 
 #endif

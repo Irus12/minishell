@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 13:48:47 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/09 14:28:06 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/09 18:28:05 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	handle_input(t_shell *shell)
 {
 	char		*line;
 	t_fd_backup	fd_backup;
-	
+
 	fd_backup = save_fds();
 	ft_signal(1, shell);
 	line = readline("minishell> ");

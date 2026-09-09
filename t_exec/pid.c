@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 14:38:16 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/02 14:09:16 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/09 18:17:23 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	wait_all_pids(t_pid_list *list, t_exec *cmd, t_shell *shell)
 	while (i < list->count)
 	{
 		waitpid(list->pids[i], &status, WUNTRACED);
-
 		if (WIFEXITED(status))
 			shell->exit_status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))

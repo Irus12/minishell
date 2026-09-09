@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 16:38:43 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/26 01:49:57 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/09 18:23:25 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ t_env_node	*get_node(t_env *env, char *key)
 	}
 	return (NULL);
 }
-
 
 int	ext_val(char *arg, t_env_node *node)
 {
