@@ -41,9 +41,11 @@ faire un custom extract_token à la place de extract_word
 
 
 */
+/*
 int	main(void)
 {
-	t_token_list *list = parser("hello''world");
+	t_token_list *list = parser("hello world", NULL);
 	print_list(list);
 	free_token_list(list);
 }
+*/

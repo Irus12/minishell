@@ -39,6 +39,9 @@ $(OBJ_DIR)/%.o: %.c minishell.h
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
+test: $(LIBFT) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(READLINE) -I. -I$(LIBFT_DIR) -o test_parser
+
 clean:
 	rm -rf $(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean
@@ -49,4 +52,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re test

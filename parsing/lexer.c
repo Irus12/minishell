@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 00:12:38 by nschilli          #+#    #+#             */
-/*   Updated: 2026/08/24 15:34:25 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/09 18:29:45 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ static void	filler(char **tab, char *str)
 		tkn++;
 	}
 }
-
 /*
 Generaly used to free a double array of char,
 Assumes that NULL is at the last index otherwise SEGFAULT

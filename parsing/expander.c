@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 14:47:21 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/07 18:37:11 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/09 16:41:59 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "minishell.h"
+#include "../minishell.h"
 
 /*
 Will expand the found variable if it is not inside a simple quote
@@ -30,14 +30,25 @@ detected and needs to be expanded
 static void	expand_str(char **str, char **out, int *index, t_shell *shell)
 {
 	char *var;
+	char *tmp;
 	int exit_status;
 
-	//exit_status = *get_status(); //marche pas
 	exit_status = shell->exit_status;
 	var = word_extractor(*str + *index, token_len(*str + *index));
-	if(!ft_strncmp(var, "$?", ft_strlen(var)))
-		str_append(&(*out), ft_itoa(exit_status)); //TODO
-	//str_append(&(*out), ft_itoa(*get_status()));
+	if(!ft_strncmp(var, "$?", 2))
+	{
+		tmp = ft_itoa(exit_status);
+		str_append(out, tmp);
+		free(tmp);
+	}
+	else if (!ft_strncmp(var, "$$", 2))
+	{
+		tmp = ft_itoa(getpid());
+		str_append(out, tmp);
+		free(tmp);
+	}
+	else if(!ft_strncmp(var, "$", ft_strlen(var)))
+		str_append(out, "$");
 	else if (getenv(var + 1) != NULL)
 		str_append(&(*out), getenv(var + 1));
 	*index += ft_strlen(var);

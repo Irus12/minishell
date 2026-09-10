@@ -51,3 +51,16 @@ t_token_list *parser(char *str, t_shell *shell)
 	//print_node(tokens); DEBUG
 	return (tokens);
 }
+
+/*
+j'ai commenter le main de minishell.c et changer des trucs du expand_str pour que ca marche
+*/
+/*
+int main(void)
+{
+	t_token_list *list = parser("/|/||| /|EW < Junb <>>ou <  dwa >> y | & dw 12 !! $$USER", NULL);
+	print_node(list);
+	free_token_list(list);
+}
+*/
+
