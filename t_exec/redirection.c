@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 17:32:00 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/02 14:43:50 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/09 18:19:20 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 // Handling > (Truncate) Redirection
-void	handle_truncate_redirection(t_exec *node, t_token_list *current, t_shell *s)
+void	handle_trunc_redir(t_exec *node, t_token_list *current, t_shell *s)
 {
 	int	fd;
 
@@ -44,7 +44,7 @@ void	handle_append_redirection(t_exec *node, t_token_list *current)
 	node->append = 1;
 }
 
-void	handle_input_redirection(t_exec *node, t_token_list *current, t_shell *s)
+void	handle_input_redir(t_exec *node, t_token_list *current, t_shell *s)
 {
 	int		fd;
 	char	*filename;
@@ -74,14 +74,13 @@ void	handle_redirection(t_shell *shell, t_exec_context *c)
 	if (!c || !c->current_lexer->next || !c->current_lexer)
 		return ;
 	if (c->current_lexer->type == TRUNCATE)
-		handle_truncate_redirection(c->current_exec, c->current_lexer, shell);
+		handle_trunc_redir(c->current_exec, c->current_lexer, shell);
 	else if (c->current_lexer->type == APPEND)
 		handle_append_redirection(c->current_exec, c->current_lexer);
 	else if (c->current_lexer->type == REDIRECT_INPUT)
-		handle_input_redirection(c->current_exec, c->current_lexer, shell);
+		handle_input_redir(c->current_exec, c->current_lexer, shell);
 	else if (c->current_lexer->type == HEREDOC)
-		// printf("caca\n");
-		handle_here_redir(c->current_exec, c->current_lexer, shell); ////a corriger les heredocs
+		handle_here_redir(c->current_exec, c->current_lexer, shell);
 	else if (c->current_lexer->type == PIPE)
 	{
 		link_exec_with_pipe(c->current_exec, c);

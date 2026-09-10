@@ -5,34 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/02 14:26:59 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/02 14:29:55 by romeo            ###   ########.fr       */
+/*   Created: 2026/09/09 18:22:26 by romeo             #+#    #+#             */
+/*   Updated: 2026/09/09 18:22:33 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+// #include "../minishell.h"
 
-// void	write_expanded_line(char *line, int tmp_fd, t_shell *shell)
+// static void	write_expanded_line(char *line, int fd, t_shell *shell)
 // {
 // 	char	*expanded;
 
-// 	expanded = interpolate(shell, line);
-// 	if (expanded)
+// 	expanded = heredoc_expander(line, shell);
+// 	if (!expanded)
 // 	{
-// 		write(tmp_fd, expanded, ft_strlen(expanded));
-// 		free(expanded);
+// 		write(fd, line, ft_strlen(line));
+// 		return ;
 // 	}
-// 	else
-// 		write(tmp_fd, line, ft_strlen(line));
+// 	write(fd, expanded, ft_strlen(expanded));
+// 	free(expanded);
 // }
 
-void	write_line_to_fd(char *l, int fd, int exp, t_shell *shell)
-{
-	(void)shell;
-	if (exp)
-		// write_expanded_line(l, fd, shell);
-		printf("caca, pas expand implemented\n");
-	else
-		write(fd, l, ft_strlen(l));
-	write(fd, "\n", 1);
-}
+// void	write_line_to_fd(char *line, int fd, int should_expand, t_shell *shell)
+// {
+// 	if (should_expand)
+// 		write_expanded_line(line, fd, shell);
+// 	else
+// 		write(fd, line, ft_strlen(line));
+// 	write(fd, "\n", 1);
+// }/ 

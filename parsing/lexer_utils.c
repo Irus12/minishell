@@ -6,13 +6,15 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 15:58:12 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/07 12:27:50 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/10 14:39:59 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//wonder if malloc too big ???
+/*
+gives the length of a string without pairs of quotes
+*/
 int	no_quote_len(char *str)
 {
 	char	in_quote;
@@ -28,7 +30,7 @@ int	no_quote_len(char *str)
 			in_quote = str[i++];
 		if (in_quote && (str[i] == in_quote))
 		{
-			i++; //on copie plus la closing quote
+			i++;
 			in_quote = 0;
 		}
 		if (str[i] == '\0')
@@ -40,18 +42,18 @@ int	no_quote_len(char *str)
 }
 
 /*
-quand on est dans une quote "" on doit copier les ' et vice versa
-(normalement ca marche)
+Returns the substring contained inside a quote
 
-Si on est hors quote → copie le caractère normalement
-Si on voit une quote ouvrante → entre en mode quote, ne copie pas la quote elle-même
-Si on est en quote → copie tout
-Si on voit la quote fermante → sort du mode quote,
-ne copie pas la quote fermante
+if we are outside quotes -> copy the character normaly.
+if we have a opening quote -> enter quote mode, copy things
+but note the quote itself.
+if we are inside a quote (in_quote != 0) -> copy everything.
+if we have the closing quote -> close the quote mode
+and will not copy the closing quote.
 
-j'ai enlever les else if en if et ca a bien marché jsp si faut faire ca avec le no_quote_len()
+we copy everything and skip the index of things we dont want to copy.
 */
-char *in_quote_extractor(char *str)
+char	*in_quote_extractor(char *str)
 {
 	char	*line;
 	char	in_quote;
@@ -68,7 +70,7 @@ char *in_quote_extractor(char *str)
 			in_quote = str[i++];
 		if (in_quote && (str[i] == in_quote))
 		{
-			i++; //on copie plus la closing quote
+			i++;
 			in_quote = 0;
 			continue ;
 		}
@@ -80,8 +82,9 @@ char *in_quote_extractor(char *str)
 }
 
 /*
-Receive a string and the char of a quote, and check if the quote can be closed
-Returns the number of closing quotes present in a string
+Receive a string and the char of a quote
+and check if the quote can be closed.
+Returns the number of closing quotes present in a string.
 */
 int	quote_can_be_closed(char *str, char quote)
 {
@@ -102,87 +105,4 @@ int	quote_can_be_closed(char *str, char quote)
 		i++;
 	}
 	return (0);
-}
-
-//avant ca return count, mtn ca return le type de quote qui englope le plus
-//changer "has quotes" de manière a stocker la plus grosse quote qui englobe le plus
-// "'$USER'" return "
-// ""'$USER' ??? 
-//etc ...
-// EN VRAI C FINE PARCE QUE ""EOF EXPAND PAS NON PLUS	
-int	str_has_closing_quotes(char *str)
-{
-	int		i;
-	int		count;
-	char	in_quote;
-
-	i = 0;
-	count = 0;
-	in_quote = 0;
-	while (str[i])
-	{
-		if (!in_quote && (str[i] == '\'' || str[i] == '"'))
-			in_quote = str[i++];
-		if (in_quote && (str[i] == in_quote))
-		{
-			in_quote = 0;
-			count++;
-		}
-		i++;
-	}
-	return (count);
-}
-
-void	clean_quotes(char **lex) //TO REMOVE
-{
-	int	i;
-
-	i = 0;
-	while (lex[i])
-	{
-		if (str_has_closing_quotes(lex[i]))
-		{
-			lex[i] = in_quote_extractor(lex[i]);
-		}
-		if ((lex[i][0] == '"' && lex[i][1] == '"')
-			|| (lex[i][0] == '\'' && lex[i][1] == '\''))
-		{
-			free(lex[i]);
-			lex[i] = "";
-		}
-		i++;
-	}
-}
-
-void	clean_quotes_word(char *word) //pour cleanup et stockage delimiter du heredoc
-{
-	int	i;
-
-	i = 0;
-	if ((word[0] == '"' && word[1] == '"') || (word[0] == '\'' && word[1] == '\''))
-	{
-		free(word);
-		word = "";
-	}
-	else
-		word = in_quote_extractor(word);
-	i++;
-}
-
-void	list_quote_cleaner(t_token_list *head)
-{
-	while (head)
-	{
-		if(str_has_closing_quotes(head->str))
-		{
-			head->str = in_quote_extractor(head->str);
-		}
-		else if ((head->str[0] == '"' && head->str[1] == '"')
-			|| (head->str[0]== '\'' && head->str[1] == '\''))
-		{
-			free(head->str);
-			head->str = ft_strdup("");
-		}
-		head = head->next;
-	}
 }

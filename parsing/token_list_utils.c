@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 16:56:29 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/07 15:23:30 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/10 15:36:48 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 t_token	assign_token_type(char *str)
 {
 	if (ft_strncmp(str, "<<", 2) == 0)
-		return(HEREDOC); 
+		return (HEREDOC);
 	else if (ft_strncmp(str, "<", 1) == 0)
 		return (REDIRECT_INPUT);
 	else if (ft_strncmp(str, ">>", 2) == 0)
@@ -39,7 +39,7 @@ t_token_list	*new_node(char *word)
 	new = malloc(sizeof(t_token_list));
 	if (!new)
 		return (NULL);
-	new->str = malloc((ft_strlen(word) + 1 ) * sizeof(char));
+	new->str = malloc((ft_strlen(word) + 1) * sizeof(char));
 	if (!new->str)
 		return (free(new), NULL);
 	ft_strlcpy(new->str, word, ft_strlen(word) + 1);
@@ -47,7 +47,7 @@ t_token_list	*new_node(char *word)
 	new->index = 0;
 	new->is_command = 0;
 	new->is_quoted = 0;
-	if (str_has_closing_quotes(new->str)) //changer "has quotes" de manière a stocker la plus grosse quote qui englobe le plus 
+	if (str_has_closing_quotes(new->str))
 		new->is_quoted = 1;
 	new->next = NULL;
 	new->prev = NULL;
@@ -88,28 +88,5 @@ void	list_init(t_token_list **stack, char **arr, int size)
 	{
 		list_append(stack, new_node(arr[i]));
 		i++;
-	}
-}
-
-t_token_list	new_token_list(void)
-{
-	t_token_list	out;
-
-	out.str = NULL;
-	out.prev = NULL;
-	out.next = NULL;
-	return (out);
-}
-
-void	free_token_list(t_token_list *head)
-{
-	t_token_list	*tmp;
-
-	while(head)
-	{
-		tmp = head->next;
-		free(head->str);
-		free(head);
-		head = tmp;
 	}
 }

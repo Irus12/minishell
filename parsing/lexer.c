@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 00:12:38 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/09 18:29:45 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/10 15:44:50 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	word_len(char *str)
 	{
 		if (!quote && (str[len] == '"' || str[len] == '\''))
 		{
-			//if (len == 0 || str[len - 1] == ' ') //règle les "c'est" mais casse "hello"' 'world
 			if (quote_can_be_closed(str, str[len]))
 				quote = str[len];
 		}
@@ -120,21 +119,6 @@ static void	filler(char **tab, char *str)
 		tkn++;
 	}
 }
-/*
-Generaly used to free a double array of char,
-Assumes that NULL is at the last index otherwise SEGFAULT
-*/
-void	free_lexer_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-}
 
 /*
 Gives an array containing every word from the original string,
@@ -152,21 +136,5 @@ char	**lexer_tab(char *str)
 		return (NULL);
 	filler(tab, str);
 	tab[nbr_token] = NULL;
-	//free(str);
 	return (tab);
 }
-
-/*
-int main	(int argc, char **argv)
-{
-	char *strs = argv[1];
-	int i = 0;
-	char **tokens = lexer_tab(strs);
-	clean_quotes(tokens);
-	while (tokens[i])
-	{
-		printf("%s\n", tokens[i]);
-		i++;
-	}
-}
-*/

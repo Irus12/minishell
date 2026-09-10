@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 17:00:27 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/01 19:04:00 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/10 15:45:41 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,7 @@ void	ft_mshell(t_shell *shell, char **cmd)
 	{
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
-		{
-			shell->exit_status = WEXITSTATUS(status); //HERE GET ExiT
-		}
+			shell->exit_status = WEXITSTATUS(status);
 	}
 	free_tab(env_arr);
 }

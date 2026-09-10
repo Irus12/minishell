@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
+/*   heredoc_expander.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 17:29:21 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/07 15:04:37 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/10 15:10:31 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 /*
-est-ce que les heredocs conservent les paires de quotes ? besoin de fonction cleanup_pairs_of_quotes ?
-*/
-/*
 check if a pair of single quote is quoting the whole word
 remplacable par quote_can_be_closed(char *str, char quote) ?
 */
-int	is_heredoc_expandable(char *delimiter)
+int	is_heredoc_expandable(char *delimiter) //NOT USED ?
 {
 	if (str_has_closing_quotes(delimiter))
-		return 0;
-	return 1;
+		return (0);
+	return (1);
 }
-/*
+
 char	*heredoc_expander(char *line, t_shell *shell)
 {
 	t_expand_state	state;
@@ -33,7 +30,6 @@ char	*heredoc_expander(char *line, t_shell *shell)
 
 	state.new_str = ft_strdup("");
 	state.og_str = line;
-
 	i = 0;
 	while (line[i])
 	{
@@ -44,4 +40,3 @@ char	*heredoc_expander(char *line, t_shell *shell)
 	}
 	return (state.new_str);
 }
-*/

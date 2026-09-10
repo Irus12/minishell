@@ -1,4 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/10 15:39:42 by nschilli          #+#    #+#             */
+/*   Updated: 2026/09/10 15:41:40 by nschilli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
+
+/*
+//to add before the return of parser
 
 void    print_node(t_token_list *node)
 {
@@ -18,14 +33,14 @@ void    print_node(t_token_list *node)
 	node = node->next;
 	}
 }
-
+*/
 
 void	free_double_tab(char **tab)
 {
 	int	i;
 
 	i = 0;
-	while(tab[i])
+	while (tab[i])
 	{
 		free(tab[i]);
 		i++;
@@ -33,34 +48,20 @@ void	free_double_tab(char **tab)
 	free(tab);
 }
 
-t_token_list *parser(char *str, t_shell *shell)
+t_token_list	*parser(char *str, t_shell *shell)
 {
 	char			**lexlings;
 	t_token_list	*tokens;
-	int	size;
+	int				size;
 
 	tokens = NULL;
 	size = 0;
 	lexlings = lexer_tab(str);
-	while(lexlings[size])
+	while (lexlings[size])
 		size++;
 	list_init(&tokens, lexlings, size);
 	list_expander(&tokens, shell);
 	free_double_tab(lexlings);
-	list_quote_cleaner(tokens); //va plus loin dans la chaine des événements ?
-	//print_node(tokens); DEBUG
+	list_quote_cleaner(tokens);
 	return (tokens);
 }
-
-/*
-j'ai commenter le main de minishell.c et changer des trucs du expand_str pour que ca marche
-*/
-/*
-int main(void)
-{
-	t_token_list *list = parser("/|/||| /|EW < Junb <>>ou <  dwa >> y | & dw 12 !! $$USER", NULL);
-	print_node(list);
-	free_token_list(list);
-}
-*/
-

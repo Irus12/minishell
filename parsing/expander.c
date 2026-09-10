@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 14:47:21 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/09 16:41:59 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/10 15:06:11 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ in order to expand an env value ($VAR)
 by string_expander() in cases where a env variable is 
 detected and needs to be expanded
 */
-static void	expand_str(char **str, char **out, int *index, t_shell *shell)
+void	expand_str(char **str, char **out, int *index, t_shell *shell)
 {
-	char *var;
-	char *tmp;
-	int exit_status;
+	char	*var;
+	char	*tmp;
+	int		exit_status;
 
 	exit_status = shell->exit_status;
 	var = word_extractor(*str + *index, token_len(*str + *index));
-	if(!ft_strncmp(var, "$?", 2))
+	if (!ft_strncmp(var, "$?", 2))
 	{
 		tmp = ft_itoa(exit_status);
 		str_append(out, tmp);
@@ -47,7 +47,7 @@ static void	expand_str(char **str, char **out, int *index, t_shell *shell)
 		str_append(out, tmp);
 		free(tmp);
 	}
-	else if(!ft_strncmp(var, "$", ft_strlen(var)))
+	else if (!ft_strncmp(var, "$", ft_strlen(var)))
 		str_append(out, "$");
 	else if (getenv(var + 1) != NULL)
 		str_append(&(*out), getenv(var + 1));
@@ -61,7 +61,8 @@ by string_expander() in cases where we are inside
 a single quote, it adds the characters end assign accordingly
 the in_quote variable
 */
-static void	assign_skip(char *receiver, char assign, int *index, t_expand_state *state)
+static void	assign_skip(char *receiver, char assign, int *index
+	, t_expand_state *state)
 {
 	str_append_char(&state->new_str, state->og_str[*index]);
 	*receiver = assign;
@@ -72,11 +73,11 @@ static void	assign_skip(char *receiver, char assign, int *index, t_expand_state 
 Expand a string if it's possible and
 won't expand env variables in simple quotes like '$VAR'
 */
-char	*string_expander(char *str,  t_shell *shell)
+char	*string_expander(char *str, t_shell *shell)
 {
 	t_expand_state	state;
-	char	in_quote;
-	int		i;
+	char			in_quote;
+	int				i;
 
 	state.new_str = ft_strdup("");
 	state.og_str = str;
@@ -84,9 +85,11 @@ char	*string_expander(char *str,  t_shell *shell)
 	i = 0;
 	while (str[i])
 	{
-		if (in_quote == 0 && str[i] == '"' && quote_can_be_closed(state.og_str, '\''))
+		if (in_quote == 0 && str[i] == '"'
+			&& quote_can_be_closed(state.og_str, '\''))
 			assign_skip(&in_quote, '"', &i, &state);
-		else if (in_quote == 0 && state.og_str[i] == '\'' && quote_can_be_closed(state.og_str, '\'')) // si simple on skip le getenv
+		else if (in_quote == 0 && state.og_str[i] == '\''
+			&& quote_can_be_closed(state.og_str, '\''))
 			assign_skip(&in_quote, '\'', &i, &state);
 		else if ((in_quote && state.og_str[i] == in_quote))
 			assign_skip(&in_quote, 0, &i, &state);
@@ -119,23 +122,4 @@ void	list_expander(t_token_list **tkn, t_shell *shell)
 		}
 		node = node->next;
 	}
-}
-
-
-char	*heredoc_expander(char *line, t_shell *shell)
-{
-	t_expand_state	state;
-	int				i;
-
-	state.new_str = ft_strdup("");
-	state.og_str = line;
-	i = 0;
-	while (line[i])
-	{
-		if (state.og_str[i] == '$')
-			expand_str(&state.og_str, &state.new_str, &i, shell);
-		else
-			str_append_char(&state.new_str, state.og_str[i++]);
-	}
-	return (state.new_str);
 }
