@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/20 16:42:04 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/20 17:52:30 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/10 17:21:54 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,6 @@ t_shell	*init_shell(char **envp)
 	shell->pid_list = NULL;
 	shell->saved_stdin = 0;
 	shell->saved_stdout = 0;
+	shell->here_stop = 0;
 	return (shell);
 }

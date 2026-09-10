@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/09 17:02:30 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/09 18:22:57 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/10 17:22:10 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static int	wait_heredoc(pid_t pid, t_shell *shell)
 	{
 		write(1, "\n", 1);
 		shell->exit_status = 130;
+		shell->here_stop = 1;
 		unlink("/tmp/minishell_heredoc_tmp");
 		return (0);
 	}

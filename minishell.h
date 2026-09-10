@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 19:26:26 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/10 16:02:13 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/10 17:21:47 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ typedef struct s_shell
 	t_pid_list			*pid_list;
 	int					saved_stdin;
 	int					saved_stdout;
+	int					here_stop;
 }	t_shell;
 
 /*

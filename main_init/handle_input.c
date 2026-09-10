@@ -6,13 +6,39 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 13:48:47 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/09 18:28:05 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/10 17:25:07 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 //Here both parsing and execution meets
+// void	handle_line(t_shell *shell, char *line)
+// {
+// 	if (!shell || !line || !*line)
+// 		return ;
+// 	shell->rl_input = ft_strdup(line);
+// 	if (!shell->rl_input)
+// 	{
+// 		perror("Failed to allocate input string");
+// 		return ;
+// 	}
+// 	shell->lex_head = parser(shell->rl_input, shell);
+// 	if (!shell->lex_head || !check_grammar(shell->lex_head))
+// 	{
+// 		shell->exit_status = 2;
+// 		free(shell->rl_input);
+// 		shell->rl_input = NULL;
+// 		return ;
+// 	}
+// 	save_fds2(shell);
+// 	shell->executor = create_exec_list(shell);
+// 	if (shell->executor)
+// 		execute_exec_list(shell, shell->executor, shell->environ);
+// 	free(shell->rl_input);
+// 	shell->rl_input = NULL;
+// }
+
 void	handle_line(t_shell *shell, char *line)
 {
 	if (!shell || !line || !*line)
@@ -33,8 +59,9 @@ void	handle_line(t_shell *shell, char *line)
 	}
 	save_fds2(shell);
 	shell->executor = create_exec_list(shell);
-	if (shell->executor)
+	if (shell->exit_status != 130 && shell->here_stop == 0 && shell->executor)
 		execute_exec_list(shell, shell->executor, shell->environ);
+	shell->here_stop = 0;
 	free(shell->rl_input);
 	shell->rl_input = NULL;
 }
