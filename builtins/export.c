@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 17:08:43 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/02 14:16:20 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/10 18:41:58 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,40 @@ void	node_free(t_env_node *node)
 
 int	export_args(t_shell *shell, char **args)
 {
-	int			i;
+	int	i;
+	int	error;
 
 	i = 0;
+	error = 0;
 	while (args[i] != NULL)
 	{
 		if (!is_valid_id(args[i]))
-		{
-			i++;
-			continue ;
-		}
-		if (!ft_strchr(args[i], '='))
-		{
-			i++;
-			continue ;
-		}
-		if (!create_add(shell, args[i]))
+			error = 1;
+		else if (!create_add(shell, args[i]))
 			return (0);
 		i++;
 	}
+	shell->exit_status = error;
 	return (1);
 }
 
 int	export(t_shell *shell, char **args)
 {
+	shell->exit_status = 0;
 	if (!args || !*args)
 	{
 		if (!exp_no_args(shell->environ))
+		{
+			shell->exit_status = 1;
 			return (0);
+		}
 		return (1);
 	}
 	if (!export_args(shell, args))
+	{
+		shell->exit_status = 1;
 		return (0);
+	}
 	return (1);
 }
 
