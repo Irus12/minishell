@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 13:48:47 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/10 17:25:07 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/10 18:33:05 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,10 @@ void	handle_line(t_shell *shell, char *line)
 		shell->rl_input = NULL;
 		return ;
 	}
+	shell->here_stop = 0;
 	save_fds2(shell);
 	shell->executor = create_exec_list(shell);
-	if (shell->exit_status != 130 && shell->here_stop == 0 && shell->executor)
+	if (shell->here_stop == 0 && shell->executor)
 		execute_exec_list(shell, shell->executor, shell->environ);
 	shell->here_stop = 0;
 	free(shell->rl_input);
