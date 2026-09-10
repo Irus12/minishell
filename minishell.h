@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 19:26:26 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/10 15:17:57 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/10 16:02:13 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,6 @@ char			*string_expander(char *str, t_shell *shell);
 void			list_expander(t_token_list **str, t_shell *shell);
 void			expand_str(char **str, char **out, int *index, t_shell *shell);
 char			*heredoc_expander(char *line, t_shell *shell);
-
 
 /* expander utils */
 int				token_len(char *str);
