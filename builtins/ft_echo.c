@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 16:28:53 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/10 18:52:50 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/10 21:07:55 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@ int		correct_option(char *cmd)
 	int	i;
 
 	i = 2;
-	if (cmd[0] == '-' && cmd[1] == 'n')
+	if (cmd[0] != '-' || cmd[1] != 'n')
+		return (0);
+	while(cmd[i])
 	{
-		while(cmd[i])
-		{
-			if (cmd[i] != 'n' && cmd[i] != '\0')
+		if (cmd[i] != 'n')
 			return (0);
-			i++;
-		}
+		i++;
 	}
 	return (1);
 }
