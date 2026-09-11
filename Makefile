@@ -34,7 +34,7 @@ $(NAME): $(LIBFT) $(OBJS)
 
 $(OBJ_DIR)/%.o: %.c minishell.h
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I. -I$(LIBFT_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) -I. -I$(LIBFT_DIR) -c $< -o $@ 
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
