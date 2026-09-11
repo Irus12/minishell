@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 13:48:47 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/11 13:40:51 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/11 16:35:14 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ void	handle_line(t_shell *shell, char *line)
 	shell->rl_input = NULL;
 }
 
+static char	*read_input(void)
+{
+	if (isatty(STDIN_FILENO))
+		return (readline("minishell> "));
+	return (readline(NULL));
+}
+
 void	handle_input(t_shell *shell)
 {
 	char		*line;
@@ -74,7 +81,7 @@ void	handle_input(t_shell *shell)
 
 	fd_backup = save_fds();
 	ft_signal(1, shell);
-	line = readline("minishell> ");
+	line = read_input();
 	if (g_exit_status != 0)
 	{
 		shell->exit_status = g_exit_status;
@@ -82,7 +89,8 @@ void	handle_input(t_shell *shell)
 	}
 	if (!line)
 	{
-		printf("exit\n");
+		if (isatty(STDIN_FILENO))
+			printf("exit\n");
 		ft_exit(shell, NULL);
 	}
 	if (*line)
