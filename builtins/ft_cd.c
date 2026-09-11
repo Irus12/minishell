@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 16:28:36 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/25 16:28:42 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/11 14:49:58 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,23 +77,41 @@ void	handle_cd_dash(t_env *env)
 	}
 }
 
+static char	*get_cd_path(t_env *env, char **args)
+{
+	char	*path;
+
+	if (args[2])
+	{
+		write(STDERR_FILENO, "cd: too many arguments\n", 23);
+		return (NULL);
+	}
+	if (!args[1])
+	{
+		path = get_env_var(env->head, "HOME");
+		if (!path)
+			write(STDERR_FILENO, "cd: HOME not set\n", 17);
+		return (path);
+	}
+	return (args[1]);
+}
+
 void	ft_cd(t_env *env, char **args)
 {
 	char	*current_pwd;
 	char	*new_pwd;
+	char	*path;
 
-	if (!args[1] || args[2])
-	{
-		write(STDERR_FILENO, "cd: wrong syntax\n", 18);
+	path = get_cd_path(env, args);
+	if (!path)
 		return ;
-	}
-	current_pwd = getcwd(NULL, 0);
-	if (ft_strcmp(args[1], "-") == 0)
+	if (ft_strcmp(path, "-") == 0)
 	{
 		handle_cd_dash(env);
 		return ;
 	}
-	if (!current_pwd || chdir(args[1]) == -1)
+	current_pwd = getcwd(NULL, 0);
+	if (!current_pwd || chdir(path) == -1)
 	{
 		perror("cd");
 		free(current_pwd);
@@ -105,3 +123,32 @@ void	ft_cd(t_env *env, char **args)
 	free(current_pwd);
 	free(new_pwd);
 }
+
+// void	ft_cd(t_env *env, char **args)
+// {
+// 	char	*current_pwd;
+// 	char	*new_pwd;
+
+// 	if (!args[1] || args[2])
+// 	{
+// 		write(STDERR_FILENO, "cd: wrong syntax\n", 18);
+// 		return ;
+// 	}
+// 	current_pwd = getcwd(NULL, 0);
+// 	if (ft_strcmp(args[1], "-") == 0)
+// 	{
+// 		handle_cd_dash(env);
+// 		return ;
+// 	}
+// 	if (!current_pwd || chdir(args[1]) == -1)
+// 	{
+// 		perror("cd");
+// 		free(current_pwd);
+// 		return ;
+// 	}
+// 	new_pwd = getcwd(NULL, 0);
+// 	update_env_var(env->head, "OLDPWD", current_pwd);
+// 	update_env_var(env->head, "PWD", new_pwd);
+// 	free(current_pwd);
+// 	free(new_pwd);
+// }

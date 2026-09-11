@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 15:05:38 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/31 18:47:22 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/11 13:40:27 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ static int	is_numeric(const char *str)
 		return (0);
 	if (str[i] == '-' || str[i] == '+')
 		i++;
+	if (!str[i])
+		return (0);
 	while (str[i])
 	{
-		if (!ft_isalnum(str[i]))
+		if (!ft_isdigit(str[i]))
 			return (0);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 13:48:47 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/10 18:33:05 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/11 13:40:51 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	handle_input(t_shell *shell)
 	}
 	if (!line)
 	{
-		printf("\n");
+		printf("exit\n");
 		ft_exit(shell, NULL);
 	}
 	if (*line)
