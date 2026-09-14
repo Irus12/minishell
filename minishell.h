@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 19:26:26 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/15 00:03:29 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/15 00:25:26 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ char			*string_expander(char *str, t_shell *shell);
 void			list_expander(t_token_list **str, t_shell *shell);
 void			expand_str(char **str, char **out, int *index, t_shell *shell);
 char			*heredoc_expander(char *line, t_shell *shell);
-char			*env_searcher(char *var, t_env *envi);
+char			*env_searcher(char *var, t_env *env);
 
 /* expander utils */
 int				token_len(char *str);

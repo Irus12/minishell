@@ -173,3 +173,24 @@ Command not found: ls
 minishell> env
 a=ls
 minishell> 
+
+
+////////
+
+./minishell
+minishell> ls
+Makefile  README.md  builtins  edgecases.md  libft  libft_merged  main_init  minishell  minishell.h  obj  parsing  src  t_exec  test_parser  utils
+minishell> env
+CODE_INJECTION=1
+TERM_PROGRAM=vscode
+VSCODE_PYTHON_AUTOACTIVATE_GUARD=1
+*le reste de var sont là j'affiche pas tout*
+DISPLAY=:0
+USER=nico
+TERM_PROGRAM_VERSION=1.135.0
+SHLVL=3
+minishell> export d=hello
+minishell> env
+d=hello
+minishell> 
+exit

@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 14:47:21 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/15 00:10:01 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/15 00:29:16 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	expand_str(char **str, char **out, int *index, t_shell *shell)
 	}
 	else if (!ft_strncmp(var, "$", ft_strlen(var)))
 		str_append(out, "$");
-	//else if (env_searcher(var + 1, shell->environ) != NULL)
-	//	str_append(&(*out), env_searcher(var + 1, shell->environ));
-	else if (getenv(var + 1) != NULL)
-		str_append(&(*out), getenv(var + 1));
+	else if (env_searcher(var + 1, shell->environ) != NULL)
+		str_append(&(*out), env_searcher(var + 1, shell->environ));
+	//else if (getenv(var + 1) != NULL)
+	//	str_append(&(*out), getenv(var + 1));
 	*index += ft_strlen(var);
 	free(var);
 }
