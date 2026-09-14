@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 14:47:21 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/10 15:06:11 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/15 00:10:01 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	expand_str(char **str, char **out, int *index, t_shell *shell)
 	}
 	else if (!ft_strncmp(var, "$", ft_strlen(var)))
 		str_append(out, "$");
+	//else if (env_searcher(var + 1, shell->environ) != NULL)
+	//	str_append(&(*out), env_searcher(var + 1, shell->environ));
 	else if (getenv(var + 1) != NULL)
 		str_append(&(*out), getenv(var + 1));
 	*index += ft_strlen(var);
@@ -86,10 +88,10 @@ char	*string_expander(char *str, t_shell *shell)
 	while (str[i])
 	{
 		if (in_quote == 0 && str[i] == '"'
-			&& quote_can_be_closed(state.og_str, '\''))
+			&& quote_can_be_closed(state.og_str + i, '\''))
 			assign_skip(&in_quote, '"', &i, &state);
 		else if (in_quote == 0 && state.og_str[i] == '\''
-			&& quote_can_be_closed(state.og_str, '\''))
+			&& quote_can_be_closed(state.og_str + i, '\''))
 			assign_skip(&in_quote, '\'', &i, &state);
 		else if ((in_quote && state.og_str[i] == in_quote))
 			assign_skip(&in_quote, 0, &i, &state);

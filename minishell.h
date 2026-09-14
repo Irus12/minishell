@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 19:26:26 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/10 17:21:47 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/15 00:03:29 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,7 @@ char			*string_expander(char *str, t_shell *shell);
 void			list_expander(t_token_list **str, t_shell *shell);
 void			expand_str(char **str, char **out, int *index, t_shell *shell);
 char			*heredoc_expander(char *line, t_shell *shell);
+char			*env_searcher(char *var, t_env *envi);
 
 /* expander utils */
 int				token_len(char *str);
@@ -286,10 +287,10 @@ int				process_lexer_node(t_shell *shell, t_exec_context *context);
 void			update_exec_links(t_exec_context *context, t_exec *exec_node);
 
 /* Redirection */
-void			handle_redirection(t_shell *shell, t_exec_context *context);
-void			handle_trunc_redir(t_exec *n, t_token_list *c, t_shell *s);
-void			handle_append_redirection(t_exec *node, t_token_list *current);
-void			handle_input_redir(t_exec *n, t_token_list *c, t_shell *s);
+int				handle_redirection(t_shell *shell, t_exec_context *context);
+int				handle_trunc_redir(t_exec *n, t_token_list *c, t_shell *s);
+int				handle_append_redir(t_exec *node, t_token_list *c, t_shell *s);
+int				handle_input_redir(t_exec *n, t_token_list *c, t_shell *s);
 void			handle_here_redir(t_exec *node, t_token_list *c, t_shell *sh);
 void			cleanup_heredoc(t_exec *node);
 void			redirect_heredoc_input(t_exec *node);

@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 00:12:38 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/10 15:44:50 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/11 16:47:40 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	word_len(char *str)
 	{
 		if (!quote && (str[len] == '"' || str[len] == '\''))
 		{
-			if (quote_can_be_closed(str, str[len]))
+			if (quote_can_be_closed(str + len, str[len]))
 				quote = str[len];
 		}
 		else if (quote && str[len] == quote)

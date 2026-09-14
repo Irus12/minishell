@@ -6,14 +6,30 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 17:32:00 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/09 18:19:20 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/11 14:20:12 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 // Handling > (Truncate) Redirection
-void	handle_trunc_redir(t_exec *node, t_token_list *current, t_shell *s)
+// void	handle_trunc_redir(t_exec *node, t_token_list *current, t_shell *s)
+// {
+// 	int	fd;
+
+// 	current = current->next;
+// 	fd = open(current->str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+// 	if (fd == -1)
+// 	{
+// 		perror("open");
+// 		s->exit_status = 127;
+// 		return ;
+// 	}
+// 	node->fd_out = fd;
+// 	node->trunc = 1;
+// }
+
+int	handle_trunc_redir(t_exec *node, t_token_list *current, t_shell *s)
 {
 	int	fd;
 
@@ -21,15 +37,31 @@ void	handle_trunc_redir(t_exec *node, t_token_list *current, t_shell *s)
 	fd = open(current->str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
-		perror("open");
-		s->exit_status = 127;
-		return ;
+		perror(current->str);
+		s->exit_status = 1;
+		return (0);
 	}
 	node->fd_out = fd;
 	node->trunc = 1;
+	return (1);
 }
 
-void	handle_append_redirection(t_exec *node, t_token_list *current)
+// void	handle_append_redirection(t_exec *node, t_token_list *current)
+// {
+// 	int	fd;
+
+// 	current = current->next;
+// 	fd = open(current->str, O_WRONLY | O_CREAT | O_APPEND, 0644);
+// 	if (fd == -1)
+// 	{
+// 		perror("open");
+// 		return ;
+// 	}
+// 	node->fd_out = fd;
+// 	node->append = 1;
+// }
+
+int	handle_append_redir(t_exec *node, t_token_list *current, t_shell *s)
 {
 	int	fd;
 
@@ -37,14 +69,16 @@ void	handle_append_redirection(t_exec *node, t_token_list *current)
 	fd = open(current->str, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		perror("open");
-		return ;
+		perror(current->str);
+		s->exit_status = 1;
+		return (0);
 	}
 	node->fd_out = fd;
 	node->append = 1;
+	return (1);
 }
 
-void	handle_input_redir(t_exec *node, t_token_list *current, t_shell *s)
+int	handle_input_redir(t_exec *node, t_token_list *current, t_shell *s)
 {
 	int		fd;
 	char	*filename;
@@ -58,7 +92,7 @@ void	handle_input_redir(t_exec *node, t_token_list *current, t_shell *s)
 		s->exit_status = 1;
 		if (node->fd_in == STDIN_FILENO)
 			node->fd_in = -1;
-		return ;
+		return (0);
 	}
 	if (node->fd_in != STDIN_FILENO && node->fd_in != -1)
 	{
@@ -67,28 +101,31 @@ void	handle_input_redir(t_exec *node, t_token_list *current, t_shell *s)
 	}
 	node->fd_in = fd;
 	node->redir_input = 1;
+	return (1);
 }
 
-void	handle_redirection(t_shell *shell, t_exec_context *c)
+int	handle_redirection(t_shell *shell, t_exec_context *c)
 {
-	if (!c || !c->current_lexer->next || !c->current_lexer)
-		return ;
-	if (c->current_lexer->type == TRUNCATE)
-		handle_trunc_redir(c->current_exec, c->current_lexer, shell);
-	else if (c->current_lexer->type == APPEND)
-		handle_append_redirection(c->current_exec, c->current_lexer);
-	else if (c->current_lexer->type == REDIRECT_INPUT)
-		handle_input_redir(c->current_exec, c->current_lexer, shell);
+	if (!c || !c->current_lexer || !c->current_lexer->next)
+		return (0);
+	if (c->current_lexer->type == TRUNCATE
+		&& !handle_trunc_redir(c->current_exec, c->current_lexer, shell))
+		return (0);
+	else if (c->current_lexer->type == APPEND
+		&& !handle_append_redir(c->current_exec, c->current_lexer, shell))
+		return (0);
+	else if (c->current_lexer->type == REDIRECT_INPUT
+		&& !handle_input_redir(c->current_exec, c->current_lexer, shell))
+		return (0);
 	else if (c->current_lexer->type == HEREDOC)
 		handle_here_redir(c->current_exec, c->current_lexer, shell);
 	else if (c->current_lexer->type == PIPE)
 	{
 		link_exec_with_pipe(c->current_exec, c);
 		c->current_lexer = c->current_lexer->next;
-		return ;
+		return (1);
 	}
 	if (c->current_lexer && c->current_lexer->next)
 		c->current_lexer = c->current_lexer->next->next;
-	else
-		c->current_lexer = NULL;
+	return (1);
 }

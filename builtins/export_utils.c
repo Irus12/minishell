@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 17:01:32 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/10 18:33:36 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/10 18:37:32 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,22 +75,3 @@ int	exp_no_args(t_env *env)
 	free_env_arr(pairs, count);
 	return (1);
 }
-
-// int	export_args(t_shell *shell, char **args)
-// {
-// 	int	i;
-// 	int	error;
-
-// 	i = 0;
-// 	error = 0;
-// 	while (args[i] != NULL)
-// 	{
-// 		if (!is_valid_id(args[i]))
-// 			error = 1;
-// 		else if (ft_strchr(args[i], '=') && !create_add(shell, args[i]))
-// 			return (0);
-// 		i++;
-// 	}
-// 	shell->exit_status = error;
-// 	return (1);
-// }

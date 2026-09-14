@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   grammar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 14:14:33 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/02 14:18:38 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/14 15:17:01 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+static int	invalid_quotes(char *str)
+{
+	char	in_quote;
+	int		i;
+
+	i = 0;
+	in_quote = 0;
+	while (str[i])
+	{
+		if (in_quote && str[i] == in_quote)
+		{	
+			in_quote = 0;
+		}
+		else if (in_quote == 0 && (str[i] == '\'' || str[i] == '"'))
+		{
+			in_quote = str[i];
+		}
+		i++;
+	}
+	return (in_quote);
+}
 
 static int	is_redirection(t_token type)
 {
@@ -20,6 +42,11 @@ static int	is_redirection(t_token type)
 
 static int	check_token(t_token_list *token)
 {
+	if (invalid_quotes(token->str))
+		{
+			write(2, "syntax error invalid quote combination\n", 39); //meilleur msg ?
+			return (0);
+		}
 	if (token->type == PIPE)
 	{
 		if (!token->prev || !token->next)

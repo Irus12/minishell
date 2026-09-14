@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 16:29:25 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/25 16:29:27 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/11 13:45:28 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,12 @@ int	unset(t_shell *shell, char **execs)
 	int	i;
 
 	fails = 0;
-	if (!shell || !execs || !execs[0])
-	{
-		shell->exit_status = 127;
+	if (!shell)
 		return (0);
+	if (!execs || !execs[0])
+	{
+		shell->exit_status = 0;
+		return (1);
 	}
 	i = 0;
 	while (execs[i] != NULL)
@@ -70,7 +72,7 @@ int	unset(t_shell *shell, char **execs)
 	}
 	if (fails > 0)
 	{
-		shell->exit_status = 127;
+		shell->exit_status = 1;
 		return (0);
 	}
 	shell->exit_status = 0;

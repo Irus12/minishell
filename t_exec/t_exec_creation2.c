@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 17:12:07 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/09 18:05:51 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/11 14:50:11 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,38 @@ void	update_exec_links(t_exec_context *context, t_exec *new_exec_node)
 		context->current_exec->pipe_in = context->fd_pipe;
 }
 
+static int	check_redir_syntax(t_token_list *token)
+{
+	if (token->type == TRUNCATE || token->type == REDIRECT_INPUT
+		|| token->type == APPEND || token->type == HEREDOC)
+	{
+		if (!token->next || token->next->type != WORD)
+		{
+			write(STDERR_FILENO, "minishell: syntax error\n", 24);
+			return (0);
+		}
+	}
+	return (1);
+}
+
 int	process_lexer_node(t_shell *shell, t_exec_context *context)
 {
-	while (context->current_lexer && context->current_lexer->type != WORD)
+	while (context->current_lexer
+		&& context->current_lexer->type != WORD)
 	{
-		if (context->current_lexer->type == TRUNCATE
-			|| context->current_lexer->type == REDIRECT_INPUT
-			|| context->current_lexer->type == APPEND
-			|| context->current_lexer->type == HEREDOC)
-		{
-			if (!context->current_lexer->next
-				|| context->current_lexer->next->type != WORD)
-			{
-				write(STDERR_FILENO, "minishell: syntax error\n", 24);
-				return (0);
-			}
-		}
-		handle_redirection(shell, context);
+		if (!check_redir_syntax(context->current_lexer))
+			return (0);
+		if (!handle_redirection(shell, context))
+			return (0);
 	}
-	if (context->current_lexer && context->current_lexer->type == WORD)
+	if (context->current_lexer
+		&& context->current_lexer->type == WORD)
 		assign_command(shell, context);
-	while (context->current_lexer && context->current_lexer->type != WORD)
-		handle_redirection(shell, context);
+	while (context->current_lexer
+		&& context->current_lexer->type != WORD)
+	{
+		if (!handle_redirection(shell, context))
+			return (0);
+	}
 	return (1);
 }

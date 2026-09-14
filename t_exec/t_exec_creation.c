@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 14:43:39 by romeo             #+#    #+#             */
-/*   Updated: 2026/08/25 14:43:50 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/11 14:26:35 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ t_exec	*handle_exec_creation(t_shell *shell, t_exec_context *context)
 	update_exec_links(context, new_exec_node);
 	if (!process_lexer_node(shell, context))
 	{
-		free_exec_node(new_exec_node);
 		free_exec(context->exec_head);
 		free(context);
 		return (NULL);
