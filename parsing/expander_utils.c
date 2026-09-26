@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 15:56:37 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/02 14:47:55 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/15 00:25:51 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,23 @@ int	has_eof_delimiter(t_token_list *tkn) //DEPRICATED
 		tkn = tkn -> next;
 	}
 	return (0);
+}
+
+char	*env_searcher(char *var, t_env *env)
+{
+	t_env_node *node;
+
+	node = env->head;
+	while(env->head)
+	{
+		if (ft_strcmp(var,node->key) == 0)
+		{
+			//env->head = head;
+			//free(head);
+			//printf("var:%s key/val  %s /ici/ %s\n",var,env->head->key,env->head->val);
+			return (node->val);
+		}			
+		node = node->next;
+	}
+	return (NULL);
 }

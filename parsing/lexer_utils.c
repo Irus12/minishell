@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 15:58:12 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/10 14:39:59 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/11 17:26:33 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,10 @@ char	*in_quote_extractor(char *str)
 }
 
 /*
-Receive a string and the char of a quote
+Receive a string at the adress of a quote and the char of a quote
 and check if the quote can be closed.
-Returns the number of closing quotes present in a string.
+(use parameter as such (str + i, '\'')
+Returns 1 if the closing quotes is present in thetring.
 */
 int	quote_can_be_closed(char *str, char quote)
 {
@@ -96,7 +97,9 @@ int	quote_can_be_closed(char *str, char quote)
 	while (str[i])
 	{
 		if (!in_quote && (str[i] == quote))
+		{
 			in_quote = str[i++];
+		}
 		if (in_quote && (str[i] == in_quote))
 		{
 			in_quote = 0;
@@ -106,3 +109,9 @@ int	quote_can_be_closed(char *str, char quote)
 	}
 	return (0);
 }
+/*
+int main(void)
+{
+	printf("is it %d ", quote_can_be_closed("'salut",'\''));
+}
+*/

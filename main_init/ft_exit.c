@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 15:05:38 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/11 13:40:27 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/15 00:46:10 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void	ft_exit(t_shell *shell, char **args)
 		printf("exit: too many arguments\n");
 		return ;
 	}
-	if (args && args[1] && !is_numeric(args[1]))
+	if (args && args[1] && !is_numeric(args[1])) //probleme ici?
 	{
 		printf("exit: %s: numeric argument required\n", args[1]);
 		exit_code = 2;
 	}
 	else if (args && args[1])
-		exit_code = atoi(args[1]);
+		exit_code = atoi(args[1]);// check que on puisse pas overflow le exit code 
 	else
 		exit_code = shell->exit_status;
 	free_exec_list(shell->executor);

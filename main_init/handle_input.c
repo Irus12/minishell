@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 13:48:47 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/11 16:35:14 by romeo            ###   ########.fr       */
+/*   Updated: 2026/09/26 19:40:46 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	handle_line(t_shell *shell, char *line)
 		shell->rl_input = NULL;
 		return ;
 	}
+	list_quote_cleaner(shell->lex_head);
 	shell->here_stop = 0;
 	save_fds2(shell);
 	shell->executor = create_exec_list(shell);

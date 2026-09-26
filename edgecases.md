@@ -99,3 +99,98 @@ nschilli@c2r8s8:~/group_proj/minishell$ cat << 'e'f'
 > 'ef'
 > ^C
 nschilli@c2r8s8:~/group_proj/minishell$ 
+
+
+/////////////////////////////////////
+./minishell
+minishell> echo $USER
+nico
+minishell> echo $USER
+nico
+minishell> 
+minishell> 
+minishell> 
+minishell> export a=ckampicfmawpiwam
+minishell> echo $a
+ckampicfmawpiwam
+minishell> echo $a
+ckampicfmawpiwam
+minishell> export b=ls
+minishell> echo $b
+ls
+minishell> $b
+Command not found: ls
+minishell> $b
+Command not found: ls
+minishell> export c="ls -a"
+minishell> $c
+Command not found: ls -a
+minishell> export c
+minishell> $c
+Command not found: ls -a
+minishell> echo $usus
+
+minishell> echo $usus
+
+minishell> env
+minishell> 
+minishell> ls
+Command not found: ls
+minishell> env
+minishell> export
+minishell> 
+
+/////////////
+
+ ./minishell
+minishell> export a=ls
+minishell> a
+Command not found: a
+minishell> $a
+Command not found: ls
+minishell> env
+a=ls
+minishell> ls
+Command not found: ls
+minishell> env
+a=ls
+minishell> cd
+cd: HOME not set
+minishell> ls
+Command not found: ls
+minishell> 
+exit
+
+////////
+ ./minishell
+minishell> export a=ls
+minishell> ls
+Makefile  README.md  builtins  edgecases.md  libft  libft_merged  main_init  minishell  minishell.h  obj  parsing  src  t_exec  test_parser  utils
+minishell> $a
+Command not found: ls
+minishell> ls
+Command not found: ls
+minishell> env
+a=ls
+minishell> 
+
+
+////////
+
+./minishell
+minishell> ls
+Makefile  README.md  builtins  edgecases.md  libft  libft_merged  main_init  minishell  minishell.h  obj  parsing  src  t_exec  test_parser  utils
+minishell> env
+CODE_INJECTION=1
+TERM_PROGRAM=vscode
+VSCODE_PYTHON_AUTOACTIVATE_GUARD=1
+*le reste de var sont là j'affiche pas tout*
+DISPLAY=:0
+USER=nico
+TERM_PROGRAM_VERSION=1.135.0
+SHLVL=3
+minishell> export d=hello
+minishell> env
+d=hello
+minishell> 
+exit
