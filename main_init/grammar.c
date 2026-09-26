@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 14:14:33 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/15 00:46:27 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/27 00:57:50 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,9 @@ static int	invalid_quotes(char *str)
 	while (str[i])
 	{
 		if (in_quote && str[i] == in_quote)
-		{	
 			in_quote = 0;
-		}
 		else if (in_quote == 0 && (str[i] == '\'' || str[i] == '"'))
-		{
 			in_quote = str[i];
-		}
 		i++;
 	}
 	return (in_quote);
