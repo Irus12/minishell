@@ -1,5 +1,4 @@
-*This project has been created as part of the 42 curriculum by nschilli, romeo.*
-
+*This project has been created as part of the 42 curriculum by nschilli, romousqu.*
 # Minishell
 
 ## Description
@@ -52,12 +51,12 @@ Enter `exit` or press Ctrl-D to leave the shell. The available syntax is intenti
 
 ## Resources
 
-- [42 Minishell project subject](https://projects.intra.42.fr/) — consult the subject assigned by your campus for the project requirements.
-- [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/bash.html) — useful shell behavior reference; this project implements only a subset.
-- [GNU Readline documentation](https://tiswww.case.edu/php/chet/readline/readline.html) — interactive line input and history library documentation.
-- [POSIX Shell Command Language](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html) — standard reference for shell language concepts.
-- Linux manual pages: `execve(2)`, `pipe(2)`, `dup2(2)`, `waitpid(2)`, and `signal(7)` — system-call and process-handling references.
-- 42 Minishell subject and peer evaluations — useful for project-specific requirements and edge-case validation.
+Minishell guide - https://m4nnb3ll.medium.com/minishell-building-a-mini-bash-a-42-project-b55a10598218
+Minishell guide -https://github.com/mcombeau/minishell
+GNU Bash Reference Manual - https://www.gnu.org/software/bash/manual/bash.html
+GNU Readline documentation - https://tiswww.case.edu/php/chet/readline/readline.html
+POSIX Shell Command Language - https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html
+ Linux manual pages: `execve(2)`, `pipe(2)`, `dup2(2)`, `waitpid(2)`, `signal(7)`
 
 ### AI usage
 

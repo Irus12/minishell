@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 19:26:26 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/28 15:01:57 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/28 16:53:38 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,30 +178,9 @@ t_env_node		*add_node(t_env *env, t_env_node *node);
 char			*my_getenv(char *name, t_env *env_list);
 void			free_env(t_env *env);
 void			free_env_list(t_env *env_list);
-
 char			**env_to_envp(t_env *env);
 void			free_envp(char **envp);
-
 void			node_free(t_env_node *node);
-
-// int	*get_status();
-// /*########## TOKENS ##########*/
-// /* lexing */
-// void			clean_quotes(char **str);
-// int				quote_can_be_closed(char *str, char quote);
-// int				str_has_closing_quotes(char *str);
-// int				word_len(char *str);
-// char			*word_extractor(char *str, int size);
-// void			clean_quotes_word(char *word);
-
-// // /* expander */
-// // char	*expanding(char *str); //
-// // char	*expand(char *str);
-
-// /* expander utils */
-// void			str_append(char **str, char *to_add);
-// void			str_append_char(char **str, char c);
-// int				has_eof_delimiter(t_token_list *tkn);
 
 /*########## TOKENS ##########*/
 /* lexing */
@@ -221,7 +200,7 @@ void			list_expander(t_token_list **str, t_shell *shell);
 void			expand_str(char **str, char **out, int *index, t_shell *shell);
 char			*heredoc_expander(char *line, t_shell *shell);
 char			*env_searcher(char *var, t_env *env);
-void			print_node(t_token_list *node); //////// remove
+void			print_node(t_token_list *node);
 
 /* expander utils */
 int				token_len(char *str);
