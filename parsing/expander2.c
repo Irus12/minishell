@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 17:29:21 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/27 00:33:21 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/27 19:29:11 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,3 @@ char	*heredoc_expander(char *line, t_shell *shell)
 	}
 	return (state.new_str);
 }
-

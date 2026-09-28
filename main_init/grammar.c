@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 14:14:33 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/27 00:57:50 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/27 01:26:38 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	check_token(t_token_list *token)
 {
 	if (invalid_quotes(token->str))
 		{
-			write(2, "syntax error invalid quote combination\n", 39); //meilleur msg ?
+			write(2, "syntax error invalid combination of quotes\n", 43);
 			return (0);
 		}
 	if (token->type == PIPE)

@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 16:56:29 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/10 15:36:48 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/27 18:42:40 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,30 @@ void	list_init(t_token_list **stack, char **arr, int size)
 	{
 		list_append(stack, new_node(arr[i]));
 		i++;
+	}
+}
+void	remove_node(t_token_list **list, int index_to_rm)
+{
+	t_token_list	*node;
+	t_token_list	*prev_tmp;
+	t_token_list	*next_tmp;
+
+	node = *list;
+	while(node)
+	{
+		if (node->index == index_to_rm)
+		{
+			prev_tmp = node->prev;
+			next_tmp = node->next;
+			if (prev_tmp)
+				prev_tmp->next = next_tmp;
+			else
+				*list = next_tmp;
+			if(next_tmp)
+				next_tmp->prev = prev_tmp;
+			free(node->str);
+			free(node);
+		}
+		node = node->next;
 	}
 }

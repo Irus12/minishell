@@ -1,0 +1,14 @@
+> ./minishell
+minishell> export a="ls -R"
+minishell> export b="grep"
+minishell> export c="Make"
+minishell> $a | $b $c
+Makefile
+Makefile
+Makefile
+Makefile
+Makefile
+minishell> export d="grep Make"
+minishell> $a | $d
+^C
+minishell> 

@@ -10,7 +10,7 @@ builtins/ft_pwd.c builtins/export_utils.c builtins/ft_env.c builtins/sort.c \
 builtins/ft_cd.c main_init/grammar.c main_init/ft_exit.c main_init/handle_input.c \
 main_init/minishell.c main_init/init_shell.c main_init/env_utils.c parsing/lexer_utils.c \
 parsing/quote_remover_utils.c parsing/expander_utils.c parsing/token_list_utils.c \
-parsing/is_builtins.c parsing/expander2.c parsing/expander.c parsing/parser.c \
+parsing/is_builtins.c  parsing/expander.c parsing/expander2.c parsing/expander3.c parsing/parser.c \
 parsing/lexer.c t_exec/exec_builtins.c t_exec/pid.c t_exec/exec_external_utils.c \
 t_exec/exec_utils2.c t_exec/t_init_exec.c t_exec/signals_exec.c t_exec/handle_builtins.c \
 t_exec/heredoc_utils.c t_exec/t_exec_creation2.c t_exec/heredoc_new_utils.c \

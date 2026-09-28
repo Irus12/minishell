@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 15:39:42 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/14 14:56:19 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/28 00:14:22 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 //to add before the return of parser
 
-void    print_node(t_token_list *node)
+void	print_node(t_token_list *node)
 {
 	if (!node)
 		return ;

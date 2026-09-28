@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 14:47:21 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/15 00:29:16 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/28 02:11:53 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ takes a t_token_list and will try to expand env variables
 inside of found string if possible.
 Won't expand env variables in simple quotes like '$VAR'
 */
+/*
 void	list_expander(t_token_list **tkn, t_shell *shell)
 {
 	t_token_list	*node;
@@ -124,4 +125,47 @@ void	list_expander(t_token_list **tkn, t_shell *shell)
 		}
 		node = node->next;
 	}
+	expander_insert_newtokens(tkn, "test1 test2", 1);
 }
+
+	*/
+
+static void cool(t_token_list **tkn, t_token_list *node, char *expanded)
+{
+	int				idx;
+
+	idx = node->index;
+	if (node->prev && node->prev->type == PIPE)
+		expander_retokenize(tkn, expanded, idx, 1);
+	else
+		expander_retokenize(tkn, expanded, idx, node->is_command);
+	free(expanded);
+}
+void	list_expander(t_token_list **tkn, t_shell *shell)
+{
+	t_token_list	*node;
+	t_token_list	*next;
+	char			*expanded;
+	//int				idx;
+
+	node = *tkn;
+	while (node)
+	{
+		next = node->next;
+		if (node->type == WORD)
+		{
+			expanded = string_expander(node->str, shell);
+			if (ft_strchr(expanded, ' ') && !node->is_quoted)
+			{
+				cool(tkn, node, expanded);
+				node = next;
+				continue ;
+			}
+			free(node->str);
+			node->str = expanded;
+		}
+		node = next;
+	}
+}
+
+

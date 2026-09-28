@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 19:26:26 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/26 19:39:15 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/28 00:03:21 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,17 +221,21 @@ void			list_expander(t_token_list **str, t_shell *shell);
 void			expand_str(char **str, char **out, int *index, t_shell *shell);
 char			*heredoc_expander(char *line, t_shell *shell);
 char			*env_searcher(char *var, t_env *env);
+void			print_node(t_token_list *node); //////// remove
 
 /* expander utils */
 int				token_len(char *str);
 void			str_append(char **str, char *to_add);
 void			str_append_char(char **str, char c);
 int				has_eof_delimiter(t_token_list *tkn);
+void			expander_retokenize(t_token_list **main, char *str, int insert_index, int is_cmd);
 
 /* token list */
 t_token_list	new_token_list(void);
 void			list_init(t_token_list **stack, char **arr, int size);
 void			free_token_list(t_token_list *head);
+void			list_insert(t_token_list **list, t_token_list *to_insert, int insert_i);
+void			remove_node(t_token_list **list, int index_to_rm);
 
 /* parsing */
 t_token_list	*parser(char *str, t_shell *shell);
