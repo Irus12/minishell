@@ -6,15 +6,13 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 15:39:42 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/28 00:14:22 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/28 15:11:03 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-
-//to add before the return of parser
-
+/*
+DEBUG, fct to add before the return of parser
 void	print_node(t_token_list *node)
 {
 	if (!node)
@@ -33,7 +31,7 @@ void	print_node(t_token_list *node)
 	node = node->next;
 	}
 }
-
+*/
 
 void	free_double_tab(char **tab)
 {
@@ -62,6 +60,5 @@ t_token_list	*parser(char *str, t_shell *shell)
 	list_init(&tokens, lexlings, size);
 	list_expander(&tokens, shell);
 	free_double_tab(lexlings);
-	//print_node(tokens);
 	return (tokens);
 }

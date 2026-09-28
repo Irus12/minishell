@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 15:56:37 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/28 00:43:32 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/28 15:04:04 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,14 @@ int	has_eof_delimiter(t_token_list *tkn) //DEPRICATED
 
 char	*env_searcher(char *var, t_env *env)
 {
-	t_env_node *node;
+	t_env_node	*node;
 
 	if (!env || !var)
 		return (NULL);
 	node = env->head;
-	while(node)
+	while (node)
 	{
-		if (ft_strcmp(var,node->key) == 0)
+		if (ft_strcmp(var, node->key) == 0)
 		{
 			return (node->val);
 		}

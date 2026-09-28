@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 16:28:53 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/10 21:07:55 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/28 15:15:49 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 /*
 Used to make -nnnn... equivalant to -n
 */
-int		correct_option(char *cmd)
+int	correct_option(char *cmd)
 {
 	int	i;
 
 	i = 2;
 	if (cmd[0] != '-' || cmd[1] != 'n')
 		return (0);
-	while(cmd[i])
+	while (cmd[i])
 	{
 		if (cmd[i] != 'n')
 			return (0);

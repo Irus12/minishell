@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 14:14:33 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/27 01:26:38 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/28 15:16:36 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ static int	is_redirection(t_token type)
 static int	check_token(t_token_list *token)
 {
 	if (invalid_quotes(token->str))
-		{
-			write(2, "syntax error invalid combination of quotes\n", 43);
-			return (0);
-		}
+	{
+		write(2, "syntax error invalid combination of quotes\n", 43);
+		return (0);
+	}
 	if (token->type == PIPE)
 	{
 		if (!token->prev || !token->next)

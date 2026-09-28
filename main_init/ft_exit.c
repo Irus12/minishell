@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 15:05:38 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/15 00:46:10 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/28 15:57:31 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,19 @@ void	ft_exit(t_shell *shell, char **args)
 	if (args && args[1] && args[2])
 	{
 		shell->exit_status = 1;
-		printf("exit: too many arguments\n");
+		write(2, "exit: too many arguments\n", 26);
 		return ;
 	}
-	if (args && args[1] && !is_numeric(args[1])) //probleme ici?
+	if (args && args[1] && !is_numeric(args[1]))
 	{
-		printf("exit: %s: numeric argument required\n", args[1]);
+		write(2, "exit\n", 5);
+		write(2, "exit: ", 7);
+		write(2, args[1], ft_strlen(args[1]));
+		write(2, ": numeric argument required\n", 28);
 		exit_code = 2;
 	}
 	else if (args && args[1])
-		exit_code = atoi(args[1]);// check que on puisse pas overflow le exit code 
+		exit_code = atoi(args[1]);
 	else
 		exit_code = shell->exit_status;
 	free_exec_list(shell->executor);

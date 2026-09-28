@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 14:47:21 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/28 11:50:37 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/28 15:09:41 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ void	expand_str(char **str, char **out, int *index, t_shell *shell)
 		str_append(out, "$");
 	else if (env_searcher(var + 1, shell->environ) != NULL)
 		str_append(&(*out), env_searcher(var + 1, shell->environ));
-	//else if (getenv(var + 1) != NULL)
-	//	str_append(&(*out), getenv(var + 1));
 	*index += ft_strlen(var);
 	free(var);
 }
@@ -130,7 +128,8 @@ void	list_expander(t_token_list **tkn, t_shell *shell)
 
 	*/
 
-static void cool(t_token_list **tkn, t_token_list *node, char *expanded)
+static void	reparse_manager(t_token_list **tkn, t_token_list *node,
+	char *expanded)
 {
 	int				idx;
 
@@ -141,12 +140,12 @@ static void cool(t_token_list **tkn, t_token_list *node, char *expanded)
 		expander_retokenize(tkn, expanded, idx, node->is_command);
 	free(expanded);
 }
+
 void	list_expander(t_token_list **tkn, t_shell *shell)
 {
 	t_token_list	*node;
 	t_token_list	*next;
 	char			*expanded;
-	//int				idx;
 
 	node = *tkn;
 	while (node)
@@ -157,7 +156,7 @@ void	list_expander(t_token_list **tkn, t_shell *shell)
 			expanded = string_expander(node->str, shell);
 			if (ft_strchr(expanded, ' ') && !node->is_quoted)
 			{
-				cool(tkn, node, expanded);
+				reparse_manager(tkn, node, expanded);
 				node = next;
 				continue ;
 			}
@@ -167,5 +166,3 @@ void	list_expander(t_token_list **tkn, t_shell *shell)
 		node = next;
 	}
 }
-
-

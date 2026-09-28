@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 14:10:36 by romeo             #+#    #+#             */
-/*   Updated: 2026/09/26 19:30:59 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/28 15:58:27 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	execute_exec_list(t_shell *shell, t_exec *cmd_list, t_env *env)
 	shell->pid_list = init_pid_list();
 	current = cmd_list;
 	while (current != NULL)
-		{
+	{
 		send_to_exec(shell, current, env);
 		current = current->next;
 		restore_fds2(shell);
