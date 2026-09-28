@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 16:56:29 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/27 18:42:40 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/28 12:00:00 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	remove_node(t_token_list **list, int index_to_rm)
 	t_token_list	*next_tmp;
 
 	node = *list;
-	while(node)
+	while (node)
 	{
 		if (node->index == index_to_rm)
 		{
@@ -111,6 +111,7 @@ void	remove_node(t_token_list **list, int index_to_rm)
 				next_tmp->prev = prev_tmp;
 			free(node->str);
 			free(node);
+			return ;
 		}
 		node = node->next;
 	}

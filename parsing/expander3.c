@@ -6,7 +6,7 @@
 /*   By: nschilli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/27 17:57:37 by nschilli          #+#    #+#             */
-/*   Updated: 2026/09/28 02:12:36 by nschilli         ###   ########.fr       */
+/*   Updated: 2026/09/28 12:08:15 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ static void append_sublist(t_token_list **list, t_token_list *to_insert)
 {
 	t_token_list	*last;
 
+	if (!*list)  // liste vide après remove_node
+	{
+		*list = to_insert;
+		return ;
+	}
 	last = *list;
 	while (last->next)
 		last = last->next;
@@ -123,16 +128,19 @@ void	expander_retokenize(t_token_list **main, char *str, int insert_index, int i
 
 	remove_node(main, insert_index);
 	lexlings = lexer_tab(str);
+	//lexlings = ft_split(str, ' ');
 	size = 0;
 	while (lexlings[size])
 		size++;
 	to_insert = NULL;
 	list_init(&to_insert, lexlings, size);
+	//print_node(to_insert);
 	to_insert->is_command = is_cmd;
 	node = to_insert;
 	//iterer dans to_insert et mettre is_command = 0
 		while(node) 
 		{
+			node->type = WORD;
 			node->is_command = 0;
 			node = node->next;
 		}
