@@ -1,3 +1,5 @@
 # CHANGED: fichiers générés
 obj/
 minishell
+*.o
+*.a
